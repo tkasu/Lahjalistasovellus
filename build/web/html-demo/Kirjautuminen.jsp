@@ -19,7 +19,7 @@
         </ul>
         <div class="container">
             <h1>Admin-kirjautuminen</h1>
-            <form class="form-horizontal" role="form" action="lomake.html" method="POST">
+            <form class="form-horizontal" role="form" action="adminEtusivu.jsp" method="POST">
                 <div class="form-group">
                     <label for="inputUsername" class="col-md-2 control-label">Käyttäjätunnus</label>
                     <div class="col-md-10">
@@ -45,8 +45,11 @@
                     <div class="col-md-offset-2 col-md-10">
                         <button type="submit" class="btn btn-default">Kirjaudu sisään</button>
                     </div>
+                    <br />
+                    <p> BETA! Kaikki tunnukset toimii! </p>
                 </div>
             </form>
         </div>
+        
     </body>
 </html>
