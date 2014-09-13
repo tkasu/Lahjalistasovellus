@@ -6,7 +6,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ListaServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/ListaServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -14,6 +14,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>/html-demo/Listaservlet</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

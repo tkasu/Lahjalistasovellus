@@ -15,6 +15,7 @@
     </head>
     <body>
         <h1>testietusivu</h1>
-        <p><a href="./html-demo/etusivu.html">Lahjalista</a></li></p>
+        <p><a href="./html-demo/etusivu.html">Testikäyttöliittymä</a></li></p>
+        <p><a href="./ListaServlet">Testilistaus</a></p>
     </body>
 </html>
