@@ -1,2 +1,6 @@
-/Lahjalistasovellus/nbproject/private/
-/Lahjalistasovellus/nbproject/dist/
+/nbproject/private/
+/nbproject/dist/
+/dist/
+/web/META-INF/context.xml
+/build/
+
