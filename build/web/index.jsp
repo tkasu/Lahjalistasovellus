@@ -1,4 +1,6 @@
 
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,6 +15,6 @@
     </head>
     <body>
         <h1>testietusivu</h1>
-        <p><a href="./html-demo/etusivu.jsp">Lahjalista</a></li></p>
+        <p><a href="./html-demo/etusivu.html">Lahjalista</a></li></p>
     </body>
 </html>
