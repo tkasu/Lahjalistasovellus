@@ -1,0 +1,23 @@
+[Lahjaehdotus]1-*[Varaus],
+[Varaus]*-1[Vieras],
+[Ylläpitäjä]1-*[Lahjaehdotus],
+
+
+[Lahjaehdotus|--key-- id: int; nimi: varchar; hinta: int; ostoOsoite: varchar; --fkey--lisääjä: varchar; maxVaraukset: integer], , [Varaus|--key-- lahja_id: int;--key-- varaaja_id: int; maara:int], [Vieras|--key--id: integer; nimi: varchar], , [Yllapitaja|--key--käyttäjätunnus: varchar; salasana: varchar], [Varaus]*-1[Vieras], , [Varaus]*-1[Lahjaehdotus], [Lahjaehdotus]*-1[Yllapitaja],
+
+
+[Ylläpitäjä]-(Lisää lahjaehdotus),
+[Ylläpitäjä]-(Muokkaa lahjaehdotusta),
+[Ylläpitäjä]-(Poista lahjaehdotus),
+[Ylläpitäjä]-(Muokkaa lahjavarausta),
+(Muokkaa lahjavarausta)>(Selaa lahjavarauksia),
+(Poista lahjaehdotus)>(Selaa lahjavarauksia),
+(Muokkaa lahjavarausta)>(Kirjautuminen),
+(Muokkaa lahjaehdotusta)>(Selaa lahjaehdotuksia),
+(Poista lahjaehdotus)>(Selaa lahjaehdotuksia),
+[Vieras]-(Varaa lahjaehdotuksen),
+(Varaa lahjaehdotuksen)>(Selaa lahjaehdotuksia),
+(Lisää lahjaehdotus)>(Kirjautuminen),
+(Muokkaa lahjaehdotusta)>(Kirjautuminen),
+(Poista lahjaehdotus)>(Kirjautuminen),
+(Varaa lahjaehdotuksen)
