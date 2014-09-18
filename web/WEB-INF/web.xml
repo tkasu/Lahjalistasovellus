@@ -2,11 +2,67 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <servlet>
         <servlet-name>ListaServlet</servlet-name>
-        <servlet-class>ListaServlet</servlet-class>
+        <servlet-class>Lahjalista.Servlets.ListaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TestiServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.TestiServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>KirjautumisServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.KirjautumisServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>naytaJSP</servlet-name>
+        <servlet-class>Lahjalista.Servlets.naytaJSP</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LahjalistaServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.LahjalistaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UloskirjautumisServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.UloskirjautumisServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.AdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LisaaServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.LisaaServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListaServlet</servlet-name>
         <url-pattern>/ListaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TestiServlet</servlet-name>
+        <url-pattern>/TestiServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>KirjautumisServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>naytaJSP</servlet-name>
+        <url-pattern>/naytaJSP</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LahjalistaServlet</servlet-name>
+        <url-pattern>/LahjalistaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UloskirjautumisServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminServlet</servlet-name>
+        <url-pattern>/admin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LisaaServlet</servlet-name>
+        <url-pattern>/lisaa</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
