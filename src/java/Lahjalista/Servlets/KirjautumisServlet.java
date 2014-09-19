@@ -34,15 +34,17 @@ public class KirjautumisServlet extends LahjalistaServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        
         String salasana = request.getParameter("password");
         String kayttajatunnus = request.getParameter("username");
-        HttpSession session = request.getSession();
+        
         Yllapitaja kayttaja = null;
         
         try {
             kayttaja = Yllapitaja.etsiYllapitajaTunnuksilla(kayttajatunnus, salasana);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            
         }
                 
         if (kayttaja != null) {
@@ -50,7 +52,7 @@ public class KirjautumisServlet extends LahjalistaServlet {
             session.setAttribute("kirjautunut", kayttaja);
         } else {
             request.setAttribute("errorViesti","Kirjautuminen epäonnistui, tarkista käyttäjätunnus ja salasana.");
-            
+           
             request.setAttribute("kayttaja", kayttajatunnus);
             naytaJSP("Kirjautuminen.jsp", request, response);
         }

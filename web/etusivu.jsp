@@ -14,11 +14,6 @@
             Alla olevasta listasta voitte selata ja varata lahjaehdotuksia
             Kysymyksissä ja ongelmatilanteissa ota yhteyttä x@y.z.</p>
         
-        <c:if test="${true != true}">
-            <div class="alert alert-danger">A-Virhe! ${errorViesti}</div>
-        </c:if>
-
-
         <br />
         <br />
         <br />

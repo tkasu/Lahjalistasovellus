@@ -5,7 +5,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a href="#">Lahjalista</a></li>
         <li class="passive"><a href="lisaa">Lisää lahjaehdotus</a></li>
-        <li class="passive"><a href="admin">Admin Sign Out</a></li>
+        <li class="passive"><a href="logout">Admin Sign Out</a></li>
     </ul>
     
     <div class="container">

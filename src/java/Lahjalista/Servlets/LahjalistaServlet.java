@@ -26,7 +26,7 @@ public class LahjalistaServlet extends HttpServlet {
     
     protected boolean onkoKirjautunut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
-        Yllapitaja kirjautunut = (Yllapitaja)session.getAttribute(null);
+        Yllapitaja kirjautunut = (Yllapitaja)session.getAttribute("kirjautunut");
         if (kirjautunut != null) {
             return true;
         }

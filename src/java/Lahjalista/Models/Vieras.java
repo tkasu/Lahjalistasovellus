@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 
+// TÄMÄ LUOKKA KESKENERÄINEN
 
 public class Vieras {
     private int id;

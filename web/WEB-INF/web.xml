@@ -32,6 +32,10 @@
         <servlet-name>LisaaServlet</servlet-name>
         <servlet-class>Lahjalista.Servlets.LisaaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EtusivuServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.EtusivuServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListaServlet</servlet-name>
         <url-pattern>/ListaServlet</url-pattern>
@@ -63,6 +67,10 @@
     <servlet-mapping>
         <servlet-name>LisaaServlet</servlet-name>
         <url-pattern>/lisaa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EtusivuServlet</servlet-name>
+        <url-pattern>/lahjalista</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

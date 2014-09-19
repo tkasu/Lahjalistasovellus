@@ -4,7 +4,7 @@
    
 <t:pohja pageTitle="Kirjautuminen">
     <ul class="nav nav-tabs">
-        <li class="passive"><a href="etusivu.jsp">Lahjalista</a></li>
+        <li class="passive"><a href="lahjalista">Lahjalista</a></li>
         <li class="active"><a href="#">Admin Sign In</a></li>
     </ul>
 
@@ -40,14 +40,10 @@
                 <br />
                 
                 <c:if test="${errorViesti != null}">
-                    <div class="alert alert-danger">Virhe! ${errorViesti}</div>
+                    <div class="alert alert-danger">${errorViesti}</div>
                 </c:if>
                 
-                <c:if test="${3!=3}" var="result">
-                    <div class="alert alert-danger">A-Virhe! ${errorViesti}</div>
-                </c:if>
-                
-                <p>tulos: ${result}</p>
+                <p>Testitunnukset kirjautumiseen: käyttäjätunnus: admin, salasana: password</p>
                 
             </div>
         </form>
