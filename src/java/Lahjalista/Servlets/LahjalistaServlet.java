@@ -30,7 +30,7 @@ public class LahjalistaServlet extends HttpServlet {
         if (kirjautunut != null) {
             return true;
         }
-        response.sendRedirect("login");
+        
         return false;
     }
 

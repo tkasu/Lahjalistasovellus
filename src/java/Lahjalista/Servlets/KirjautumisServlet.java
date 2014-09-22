@@ -26,7 +26,12 @@ public class KirjautumisServlet extends LahjalistaServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        naytaJSP("Kirjautuminen.jsp", request, response);
+        if (onkoKirjautunut(request, response)) {
+            response.sendRedirect("admin");
+        } else {
+            naytaJSP("Kirjautuminen.jsp", request, response);
+        }
+                
     }
 
     

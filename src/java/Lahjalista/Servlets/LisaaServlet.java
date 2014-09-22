@@ -15,6 +15,8 @@ public class LisaaServlet extends LahjalistaServlet {
             throws ServletException, IOException {
         if (onkoKirjautunut(request, response)) {
             naytaJSP("lisaaLahja.jsp", request, response);
+        } else {
+            response.sendRedirect("login");
         }
     }
 

@@ -19,6 +19,8 @@ public class AdminServlet extends LahjalistaServlet {
             throws ServletException, IOException {
         if (onkoKirjautunut(request, response)) {
             naytaJSP("adminEtusivu.jsp", request, response);
+        } else {
+            response.sendRedirect("login");
         }
     }
 
