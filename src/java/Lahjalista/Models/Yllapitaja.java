@@ -16,6 +16,10 @@ public class Yllapitaja {
         this.kayttajatunnus = kayttajatunnus;
     }
     
+    public String getUsername() {
+        return this.kayttajatunnus;
+    }
+    
     protected void setPassword(String salasana) {
         this.salasana = salasana;
     } 

@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <t:pohja pageTitle="Lahjalista">
     <ul class="nav nav-tabs">
@@ -35,22 +36,27 @@
                 </tr>
             </thead>
             <tbody>
+                <c:forEach var="lahja" items="${lahjat}">
                 <tr>
-                    <td>lahja1</td>
-                    <td>10e</td>
-                    <td>2/10</td>
+                    <td>${lahja.nimi}</td>
+                    <c:choose>
+                        <c:when test="${lahja.hinta != null}">
+                            <td>${lahja.hinta}</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td></td> 
+                        </c:otherwise>
+                    </c:choose>
+                    
+                    <td>0/${lahja.maxVaraukset}</td>
                     <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#varaaModal">Varaa</button></td>
                 </tr>
-                <tr>
-                    <td>lahja2</td>
-                    <td>20e</td>
-                    <td>0/1</td>
-                    <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#varaaModal">Varaa</button></td>
-                </tr>
+                </c:forEach>
             </tbody>
 
         </table>
     </div>
+    
 
     <div class="modal fade" id="varaaModal" tabindex="-1" role="dialog">
         <div class="modal-dialog">

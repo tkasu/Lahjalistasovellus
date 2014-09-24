@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
    
 <t:pohja pageTitle="Kirjautuminen">
@@ -37,7 +38,8 @@
                 <div class="col-md-offset-2 col-md-10">
                     <button type="submit" class="btn btn-default">Kirjaudu sisään</button>
                 </div>
-                <br />
+                <br /> <br /> <br /> <br />
+                
                 
                 <c:if test="${errorViesti != null}">
                     <div class="alert alert-danger">${errorViesti}</div>

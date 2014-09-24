@@ -9,6 +9,7 @@ package Lahjalista.Servlets;
 import Lahjalista.Models.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,16 @@ public class LahjalistaServlet extends HttpServlet {
         }
         
         return false;
+    }
+    
+    protected void haeLahjat(HttpServletRequest request, HttpServletResponse response) {
+        List<Lahjaehdotus> lahjat = null;
+        try {
+            lahjat = Lahjaehdotus.getKaikkiLahjat();
+        } catch (Exception e) {
+            e.getMessage();
+        }
+        request.setAttribute("lahjat", lahjat);
     }
 
 }

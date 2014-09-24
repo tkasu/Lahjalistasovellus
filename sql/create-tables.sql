@@ -5,7 +5,7 @@ CREATE TABLE Yllapitaja (
 CREATE TABLE Lahjaehdotus ( 
 	id SERIAL primary key,
 	nimi varchar(60) not null unique,
-	hinta integer,
+	hinta float,
 	ostoOsoite varchar(150),
 	lisaaja varchar(30),
 	maxVaraukset integer,

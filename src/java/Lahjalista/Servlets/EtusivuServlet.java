@@ -6,12 +6,16 @@
 
 package Lahjalista.Servlets;
 
+import Lahjalista.Models.*;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 
 public class EtusivuServlet extends LahjalistaServlet {
@@ -19,6 +23,8 @@ public class EtusivuServlet extends LahjalistaServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        haeLahjat(request, response);
         naytaJSP("etusivu.jsp", request, response);
     }
 

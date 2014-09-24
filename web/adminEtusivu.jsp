@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <t:pohja pageTitle="Admin Lahjalista">
     <ul class="nav nav-tabs">
@@ -7,7 +8,7 @@
         <li class="passive"><a href="lisaa">Lisää lahjaehdotus</a></li>
         <li class="passive"><a href="logout">Admin Sign Out</a></li>
     </ul>
-    
+
     <div class="container">
         <h1>Admin</h1>
         <p>Kirjautunut käyttäjätunnuksella xxx</p>
@@ -22,12 +23,13 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">Lahjaehdotukset</div>
-                         
+
 
             <table class="table">
                 <thead>
                     <tr>
-                        <td>nimi</td>
+                        <td>nimi
+                        </td>
                         <td>hinta</td>
                         <td>varauksia jäljellä</td>
                         <td>varanneet</td>
@@ -35,20 +37,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>lahja1</td>
-                        <td>10e</td>
-                        <td>2/10</td>
-                        <td>Matti, Seppo</td>
+                    <c:forEach var="lahja" items="${lahjat}">
+                        <tr>
+                            <td>${lahja.nimi}</td>
+                        <c:choose>
+                            <c:when test="${lahja.hinta != null}">
+                                <td>${lahja.hinta}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td></td> 
+                            </c:otherwise>
+                        </c:choose>
+                        <td>0/${lahja.maxVaraukset}</td>
+                        <td>Matti, Seppo(Ei toimi vielä)</td>
                         <td><button class="btn btn-default" data-toggle="modal" data-target="#muokkaaModal">Muokkaa</button></td>
-                    </tr>
-                    <tr>
-                        <td>lahja2</td>
-                        <td>20e</td>
-                        <td>0/1</td>
-                        <td>null</td>
-                        <td><button class="btn btn-default" data-toggle="modal" data-target="#muokkaaModal">Muokkaa</button></td>
-                    </tr>
+                        </tr>
+                    </c:forEach>
                 </tbody>
 
             </table>
@@ -57,8 +61,8 @@
 
 
     <div class="modal fade" id="muokkaaModal" tabindex="-1" role="dialog">
-         <div class="modal-dialog">
-             <div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">Muokkaa lahjaa</h4>
@@ -86,10 +90,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                           <label class="col-md-2 control-label">Ostopaikan url</label>
-                           <div class="col-md-10">
+                            <label class="col-md-2 control-label">Ostopaikan url</label>
+                            <div class="col-md-10">
                                 <input type="text" class="form-control" id="URL" name="URL" placeholder="URL">
-                           </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
@@ -116,8 +120,8 @@
     </div>
 
     <div class="modal fade" id="poistaModal" tabindex="-1" role="dialog">
-         <div class="modal-dialog">
-             <div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4 class="modal-title">Haluatko varmasti poistaa lahjan?</h4>

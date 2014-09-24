@@ -6,14 +6,15 @@
 
 package Lahjalista.Servlets;
 
-import Lahjalista.Models.Yllapitaja;
+import Lahjalista.Models.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.RequestDispatcher;
 
 /**
  *
@@ -32,32 +33,24 @@ public class TestiServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         
         
         
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet TestiServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<p>");
-            Yllapitaja kirjautunut = null; 
+            Lahjaehdotus temp = new Lahjaehdotus();
             try {
-                kirjautunut = Yllapitaja.etsiYllapitajaTunnuksilla("admin", "password");
-                out.println(kirjautunut);
+                
+                List<Lahjaehdotus> lahjat = temp.getKaikkiLahjat();
+                for (Lahjaehdotus x : lahjat) {
+                    //out.println(x.getNimi());
+                    out.println(x);
+                }
             } catch (Exception e) {
                 out.println(e.getMessage());
             }
-            
-            out.println("</p>");
-            out.println("<h1>Servlet TestiServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
         } finally {
             out.close();
         }

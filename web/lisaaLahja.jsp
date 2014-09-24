@@ -10,7 +10,7 @@
 
     <div class="container">
         <h1>Lisää lahjaehdotus</h1>
-        <form class="form-horizontal" role="form" action="#" method="POST">
+        <form class="form-horizontal" role="form" action="lisaa" method="POST">
             <div class="form-group">
                 <label class="col-md-2 control-label">Lahjan nimi</label>
                 <div class="col-md-10">
@@ -26,13 +26,13 @@
             <div class="form-group">
                 <label class="col-md-2 control-label">Max Varaukset</label>
                 <div class="col-md-10">
-                    <input type="text" class="form-control" id="text" name="max varaukset" placeholder="max varaukset">
+                    <input type="text" class="form-control" id="text" name="maxVaraukset" placeholder="max varaukset">
                 </div>
             </div>
              <div class="form-group">
                 <label class="col-md-2 control-label">Ostopaikan url</label>
                 <div class="col-md-10">
-                        <input type="text" class="form-control" id="URL" name="URL" placeholder="URL">
+                        <input type="text" class="form-control" id="URL" name="ostoOsoite" placeholder="URL">
                 </div>
             </div>
             <div class="form-group">
