@@ -24,7 +24,9 @@ public class EtusivuServlet extends LahjalistaServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        haeLahjat(request, response);
+        String hakuehto = request.getParameter("hakukentta");
+        haeLahjat(hakuehto, request, response);
+        request.setAttribute("hakuehto", hakuehto);
         naytaJSP("etusivu.jsp", request, response);
     }
 

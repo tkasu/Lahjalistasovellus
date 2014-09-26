@@ -42,7 +42,7 @@ public class TestiServlet extends HttpServlet {
             Lahjaehdotus temp = new Lahjaehdotus();
             try {
                 
-                List<Lahjaehdotus> lahjat = temp.getKaikkiLahjat();
+                List<Lahjaehdotus> lahjat = temp.getKaikkiLahjat("");
                 for (Lahjaehdotus x : lahjat) {
                     //out.println(x.getNimi());
                     out.println(x);

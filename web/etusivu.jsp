@@ -7,14 +7,14 @@
         <li class="active"><a href="#">Lahjalista</a></li>
         <li class="passive"><a href="login">Admin Sign In</a></li>
     </ul>
-    
-    
+
+
     <div class="container">
         <h1>Tervetuloa!</h1>
         <p>Tervetuloa X:n ja Y:n lahjanvaraussivustolle! 
             Alla olevasta listasta voitte selata ja varata lahjaehdotuksia
             Kysymyksissä ja ongelmatilanteissa ota yhteyttä x@y.z.</p>
-        
+
         <br />
         <br />
         <br />
@@ -24,7 +24,14 @@
         <div class="panel panel-default">
 
             <div class="panel-heading">Lahjaehdotukset</div>
-        </div>             
+
+            <form class="navbar-form navbar-right" role="form" action="lahjalista" method="GET">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="hakukentta" value="${hakuehto}" placeholder="Hae nimellä">
+                    <button type="submit" class="btn btn-default">Hae</button>
+                </div>    
+            </form>
+           
 
         <table class="table">
             <thead>
@@ -37,36 +44,36 @@
             </thead>
             <tbody>
                 <c:forEach var="lahja" items="${lahjat}">
-                <tr>
-                    <td>${lahja.nimi}</td>
-                    <c:choose>
-                        <c:when test="${lahja.hinta != null}">
-                            <td>${lahja.hinta}</td>
-                        </c:when>
-                        <c:otherwise>
-                            <td></td> 
-                        </c:otherwise>
-                    </c:choose>
-                    
-                    <td>0/${lahja.maxVaraukset}</td>
-                    <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#varaaModal">Varaa</button></td>
-                </tr>
+                    <tr>
+                        <td>${lahja.nimi}</td>
+                        <c:choose>
+                            <c:when test="${lahja.hinta != null}">
+                                <td>${lahja.hinta}</td>
+                            </c:when>
+                            <c:otherwise>
+                                <td></td> 
+                            </c:otherwise>
+                        </c:choose>
+
+                        <td>0/${lahja.maxVaraukset}</td>
+                        <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#varaaModal">Varaa</button></td>
+                    </tr>
                 </c:forEach>
             </tbody>
 
         </table>
     </div>
-    
+
 
     <div class="modal fade" id="varaaModal" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content" >
-               <div class="modal-header">
-                   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                   <h4 class="modal-title">Varaa lahja (ei toiminnallisuutta vielä)</h4>
-               </div>
-               <div class="modal-body">
-                   <p> olet varaamassa lahjaa xxx </p>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">Varaa lahja (ei toiminnallisuutta vielä)</h4>
+                </div>
+                <div class="modal-body">
+                    <p> olet varaamassa lahjaa xxx </p>
                     <form class="form-horizontal" role="form" action="adminEtusivu.html" method="POST">
                         <div class="form-group">
                             <label class="col-md-2 control-label">Varaajan nimi</label>
@@ -87,14 +94,14 @@
                             </div> 
                         </div>
                     </form>
-               </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
                     <button type="button" class="btn btn-primary">Varaa</button>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </t:pohja>        
-    
+

@@ -23,10 +23,14 @@ public class AdminServlet extends LahjalistaServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //PrintWriter out = response.getWriter();
         if (onkoKirjautunut(request, response)) {
-            haeLahjat(request, response);
+            String hakuehto = request.getParameter("hakukentta");
+            haeLahjat(hakuehto, request, response);
             haeIlmoitus(request);
             haeVirheet(request);
+            request.setAttribute("hakuehto", hakuehto);
+            
             naytaJSP("adminEtusivu.jsp", request, response);
         } else {
             response.sendRedirect("login");

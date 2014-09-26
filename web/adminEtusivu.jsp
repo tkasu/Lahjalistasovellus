@@ -12,6 +12,7 @@
     <div class="container">
         <h1>Admin</h1>
         <p>Kirjautunut käyttäjätunnuksella "${kirjautunut}"</p>
+        <p>Varattuja lahjoja ei voi vielä poistaa, tämä toteutetaan varausten yhteydessä ensi viikolla</p>
 
 
         <br />
@@ -33,10 +34,20 @@
 
 
 
+        <div>
+            
+        </div>
+        
         <div class="panel panel-default">
 
             <div class="panel-heading">Lahjaehdotukset</div>
-
+            
+            <form class="navbar-form navbar-right" role="form" action="admin" method="GET">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="hakukentta" value="${hakuehto}" placeholder="Hae nimellä">
+                    <button type="submit" class="btn btn-default">Hae</button>
+                </div>    
+            </form>
 
             <table class="table">
                 <thead>

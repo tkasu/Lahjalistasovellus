@@ -38,10 +38,13 @@ public class LahjalistaServlet extends HttpServlet {
         return false;
     }
     
-    protected void haeLahjat(HttpServletRequest request, HttpServletResponse response) {
+    protected void haeLahjat(String hakuehto, HttpServletRequest request, HttpServletResponse response) {
         List<Lahjaehdotus> lahjat = null;
+        if (hakuehto == null) {
+            hakuehto = "";
+        }
         try {
-            lahjat = Lahjaehdotus.getKaikkiLahjat();
+            lahjat = Lahjaehdotus.getKaikkiLahjat(hakuehto);
         } catch (Exception e) {
             e.getMessage();
         }

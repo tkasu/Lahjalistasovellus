@@ -249,7 +249,7 @@ public class Lahjaehdotus {
         return loydetty;
     }
     
-    public static List<Lahjaehdotus> getKaikkiLahjat() throws Exception{
+    public static List<Lahjaehdotus> getKaikkiLahjat(String hakuehto) throws Exception{
             Connection yhteys = null;
             PreparedStatement kysely = null;
             ResultSet tulokset = null;
@@ -260,8 +260,10 @@ public class Lahjaehdotus {
                 yhteys = kanta.getYhteys();
                 
 
-                String sql = "SELECT * from Lahjaehdotus ORDER BY nimi";
+                String sql = "SELECT * from Lahjaehdotus WHERE LOWER(nimi) LIKE LOWER(?) ORDER BY nimi";
                 kysely = yhteys.prepareStatement(sql);
+                kysely.setString(1, "%" + hakuehto + "%");
+                
                 tulokset = kysely.executeQuery();
 
                 lahjat = new ArrayList<Lahjaehdotus>();
