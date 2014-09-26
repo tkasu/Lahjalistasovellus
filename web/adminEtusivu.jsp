@@ -11,10 +11,17 @@
 
     <div class="container">
         <h1>Admin</h1>
-        <p>Kirjautunut käyttäjätunnuksella xxx</p>
+        <p>Kirjautunut käyttäjätunnuksella "${kirjautunut}"</p>
 
 
         <br />
+
+        <c:if test="${ilmoitus != null}">
+            <div class="bg-success">${ilmoitus}</div>
+        </c:if>
+
+
+
         <br />
         <br />
 
@@ -40,17 +47,17 @@
                     <c:forEach var="lahja" items="${lahjat}">
                         <tr>
                             <td>${lahja.nimi}</td>
-                        <c:choose>
-                            <c:when test="${lahja.hinta != null}">
-                                <td>${lahja.hinta}</td>
-                            </c:when>
-                            <c:otherwise>
-                                <td></td> 
-                            </c:otherwise>
-                        </c:choose>
-                        <td>0/${lahja.maxVaraukset}</td>
-                        <td>Matti, Seppo(Ei toimi vielä)</td>
-                        <td><button class="btn btn-default" data-toggle="modal" data-target="#muokkaaModal">Muokkaa</button></td>
+                            <c:choose>
+                                <c:when test="${lahja.hinta != null}">
+                                    <td>${lahja.hinta}</td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td></td> 
+                                </c:otherwise>
+                            </c:choose>
+                            <td>0/${lahja.maxVaraukset}</td>
+                            <td>Matti, Seppo(Ei toimi vielä)</td>
+                            <td><button class="open-muokkaaModal btn btn-default" data-toggle="modal" data-nimi="${lahja.nimi}" data-hinta="${lahja.hinta}" data-maxVaraukset="${lahja.maxVaraukset}" data-osoite="${lahja.osoite}" data-id="${lahja.id}" data-target="#muokkaaModal">Muokkaa</button></td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -59,7 +66,7 @@
         </div>
     </div>
 
-
+    
     <div class="modal fade" id="muokkaaModal" tabindex="-1" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -70,29 +77,30 @@
                 <div class="modal-body">
 
 
-                    <form class="form-horizontal" role="form" action="#" method="POST">
-                        <div class="form-group">
+                    <form class="form-horizontal" role="form" action="admin" method="POST">
+                        <input type="hidden" name="lahja-id" id="id-kentta" value="" />
+                        <div  class="form-group">
                             <label class="col-md-2 control-label">Lahjan nimi</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="nimi" placeholder="nimi">
+                                <input type="text" class="form-control" id="nimiKentta" name="nimi" placeholder="nimi">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div  class="form-group">
                             <label class="col-md-2 control-label">Hinta</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" id="inputPrice" name="hinta" placeholder="hinta">
+                                <input type="text" class="form-control" id="hintaKentta" name="hinta" placeholder="hinta" value="">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div  class="form-group">
                             <label class="col-md-2 control-label">Max Varaukset</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" id="text" name="max varaukset" placeholder="max varaukset">
+                                <input type="text" class="form-control" id="maxVarauksetKentta" name="max varaukset" placeholder="max varaukset" value="">
                             </div>
-                        </div>
-                        <div class="form-group">
+                        </div>  
+                        <div  class="form-group">
                             <label class="col-md-2 control-label">Ostopaikan url</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" id="URL" name="URL" placeholder="URL">
+                                <input type="text" class="form-control" id="osoiteKentta" name="URL" placeholder="URL">
                             </div>
                         </div>
                         <div class="form-group">
@@ -118,6 +126,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="modal fade" id="poistaModal" tabindex="-1" role="dialog">
         <div class="modal-dialog">

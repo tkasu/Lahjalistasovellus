@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <t:pohja pageTitle="Lisää Lahjaehdotus">
     <ul class="nav nav-tabs">
@@ -50,6 +51,11 @@
                 </div>
             </div>
         </form>
+        <div>
+            <c:forEach var="virhe" items="${virheet}">
+                <div class="alert alert-danger">${virhe}</div>
+            </c:forEach>         
+        </div>
     </div>
 </t:pohja> 
         

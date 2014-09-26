@@ -2110,5 +2110,8 @@ if (typeof jQuery === 'undefined') { throw new Error('Bootstrap\'s JavaScript re
       Plugin.call($spy, data)
     })
   })
+  
+ 
+  
 
 }(jQuery);

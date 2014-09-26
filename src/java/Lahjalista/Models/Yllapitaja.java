@@ -60,7 +60,7 @@ public class Yllapitaja {
     }
     
     public String toString() {
-        return this.kayttajatunnus + " " + this.salasana;
+        return this.kayttajatunnus;
     }
     
 }

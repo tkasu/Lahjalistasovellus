@@ -7,6 +7,7 @@ import Lahjalista.Models.Lahjaehdotus;
 import Lahjalista.Models.Yllapitaja;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import javax.naming.NamingException;
@@ -39,7 +40,7 @@ public class LisaaServlet extends LahjalistaServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        //PrintWriter out = response.getWriter();
+//        PrintWriter out = response.getWriter();
         
         Lahjaehdotus uusiLahja = new Lahjaehdotus();
         uusiLahja.setNimi(request.getParameter("nimi"));
@@ -50,22 +51,39 @@ public class LisaaServlet extends LahjalistaServlet {
         Yllapitaja kirjautunut = (Yllapitaja)session.getAttribute("kirjautunut");
         uusiLahja.setLisaaja(kirjautunut.getUsername());
         
-        uusiLahja.setMaxVaraukset(Integer.parseInt(request.getParameter("maxVaraukset")));
+        uusiLahja.setMaxVaraukset(request.getParameter("maxVaraukset"));
         
-        try {
-            uusiLahja.lisaaKantaan();
-            response.sendRedirect("admin");
-        } catch (Exception e) {
+//        Collection<String> virheet = uusiLahja.getVirheet();
+//        
+//        for (String virhe : virheet) {
+//            out.println(virhe);
+//        }
+//        
+//        out.println("onkoKelvollinen = " + uusiLahja.onkoKelvollinen());
+        
+        if (uusiLahja.onkoKelvollinen()) {
+            try {
+                uusiLahja.lisaaKantaan();
+                String ilmoitus = "Lahjaehdotus '" + uusiLahja.getNimi() + "' lisätty onnistuneesti.";
+                session.setAttribute("ilmoitus", ilmoitus);
+                
+                response.sendRedirect("admin");
+            } catch (Exception e) {
+            }
+        } else {
+            Collection<String> virheet = uusiLahja.getVirheet();
+            
+            request.setAttribute("virheet", virheet);
+            request.setAttribute("lahja", uusiLahja);
+            
+            naytaJSP("lisaaLahja.jsp", request, response);
         }
+        
         
         
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+   
     @Override
     public String getServletInfo() {
         return "Short description";

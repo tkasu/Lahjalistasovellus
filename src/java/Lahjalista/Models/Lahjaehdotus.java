@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,6 +116,14 @@ public class Lahjaehdotus {
         return this.maxVaraukset;
     }
     
+    public boolean onkoKelvollinen() {
+        return this.virheet.isEmpty();
+    }
+    
+    public Collection<String> getVirheet() {
+        return virheet.values();
+    }
+    
     
     @Override
     public String toString() {
@@ -152,6 +161,43 @@ public class Lahjaehdotus {
             kysely.close();
             yhteys.close();
         }  
+    }
+    
+    public static Lahjaehdotus etsi(int id) throws Exception {
+        Connection yhteys = null;
+        PreparedStatement kysely = null;
+        ResultSet tulokset = null;
+        Lahjaehdotus loydetty = null;
+        
+        try {
+            Tietokanta kanta = new Tietokanta();
+            yhteys = kanta.getYhteys();
+
+
+            String sql = "SELECT * FROM Lahjaehdotus WHERE id = ?";
+            kysely = yhteys.prepareStatement(sql);
+            kysely.setInt(1, id);
+
+            tulokset = kysely.executeQuery();
+
+            if (tulokset.next()) {
+                loydetty = new Lahjaehdotus();
+
+                loydetty.setId(tulokset.getInt("id"));
+                loydetty.setNimi(tulokset.getString("nimi"));
+                loydetty.setHinta(tulokset.getDouble("hinta"));
+                loydetty.setOsoite(tulokset.getString("ostoOsoite"));
+                loydetty.setLisaaja(tulokset.getString("lisaaja"));
+                loydetty.setMaxVaraukset(tulokset.getInt("maxVaraukset"));
+            }
+                
+            } finally {
+                    tulokset.close();
+                    kysely.close();
+                    yhteys.close();
+            }
+        
+        return loydetty;
     }
     
     public static List<Lahjaehdotus> getKaikkiLahjat() throws Exception{

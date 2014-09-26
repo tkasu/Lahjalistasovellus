@@ -44,5 +44,15 @@ public class LahjalistaServlet extends HttpServlet {
         }
         request.setAttribute("lahjat", lahjat);
     }
+    
+    protected void haeIlmoitus(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String ilmoitus = (String)session.getAttribute("ilmoitus");
+        
+        if (ilmoitus != null) {
+            session.removeAttribute("ilmoitus");
+            request.setAttribute("ilmoitus", ilmoitus);
+        }
+    }
 
 }

@@ -13,6 +13,7 @@
 	<link href="./css/main.css" rel="stylesheet">
         <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
         <script type="text/javascript" src="./js/bootstrap.js"></script>
+        <script type="text/javascript" src="./js/omat.js"></script>
         
         <title>${pageTitle}</title>
     </head>
