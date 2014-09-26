@@ -9,7 +9,10 @@ package Lahjalista.Servlets;
 import Lahjalista.Models.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -52,6 +55,16 @@ public class LahjalistaServlet extends HttpServlet {
         if (ilmoitus != null) {
             session.removeAttribute("ilmoitus");
             request.setAttribute("ilmoitus", ilmoitus);
+        }
+    }
+    
+    protected void haeVirheet(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Collection<String> virheet = (Collection)session.getAttribute("virheet");
+        
+        if (virheet != null) {
+            session.removeAttribute("virheet");
+            request.setAttribute("virheet", virheet);
         }
     }
 

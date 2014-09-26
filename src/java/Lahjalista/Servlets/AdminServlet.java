@@ -9,10 +9,14 @@ package Lahjalista.Servlets;
 import Lahjalista.Models.Lahjaehdotus;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class AdminServlet extends LahjalistaServlet {
 
@@ -22,6 +26,7 @@ public class AdminServlet extends LahjalistaServlet {
         if (onkoKirjautunut(request, response)) {
             haeLahjat(request, response);
             haeIlmoitus(request);
+            haeVirheet(request);
             naytaJSP("adminEtusivu.jsp", request, response);
         } else {
             response.sendRedirect("login");
@@ -31,14 +36,10 @@ public class AdminServlet extends LahjalistaServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         PrintWriter out = response.getWriter();
-        try {
-            int id = Integer.parseInt(request.getParameter("lahja-id"));
-            Lahjaehdotus lahja = Lahjaehdotus.etsi(id);
-            out.println(id);
-        } catch (Exception e) {
-            
-        }
+        out.println("Admin POST ei käytössä");
+
         
         
     }

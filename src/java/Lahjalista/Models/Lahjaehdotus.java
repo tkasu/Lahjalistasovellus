@@ -130,6 +130,50 @@ public class Lahjaehdotus {
         return "id: " + getId() + " nimi: " + getNimi() + " hinta: " + getHinta() + " osto-soite: " + getOsoite() + " lisaaja: " + getLisaaja() + " max varaukset: " + getMaxVaraukset();
     }
     
+    public void poistaKannasta() throws NamingException, SQLException {
+        String sql = "DELETE FROM Lahjaehdotus WHERE id = ?";
+        Connection yhteys = null;
+        PreparedStatement kysely = null;
+        
+        try {
+            Tietokanta kanta = new Tietokanta();
+            yhteys = kanta.getYhteys();
+            kysely = yhteys.prepareStatement(sql);
+            kysely.setInt(1, this.getId());
+            
+            kysely.executeUpdate();
+        } finally {
+            kysely.close();
+            yhteys.close();
+        }
+            
+    }
+    
+    public void paivitaKantaan() throws NamingException, SQLException {
+        String sql = "UPDATE Lahjaehdotus SET nimi = ?, hinta = ?, ostoOsoite = ?, maxVaraukset = ? WHERE id = ?";
+        Connection yhteys = null;
+        PreparedStatement kysely = null;
+        
+        try {
+            Tietokanta kanta = new Tietokanta();
+            yhteys = kanta.getYhteys();
+            kysely = yhteys.prepareStatement(sql);
+            
+            kysely.setString(1, this.getNimi());
+            kysely.setDouble(2, this.getHinta());
+            kysely.setString(3, this.getOsoite());
+            kysely.setInt(4, this.getMaxVaraukset());
+            kysely.setInt(5, this.getId());
+            
+            kysely.executeUpdate();
+            
+        } finally {
+            kysely.close();
+            yhteys.close();
+        }
+        
+    }
+    
     public void lisaaKantaan() throws NamingException, SQLException {
         String sql = "INSERT INTO Lahjaehdotus(nimi, hinta, ostoOsoite, lisaaja, maxVaraukset) VALUES(?,?,?,?,?) RETURNING id";
         Connection yhteys = null;
@@ -163,7 +207,7 @@ public class Lahjaehdotus {
         }  
     }
     
-    public static Lahjaehdotus etsi(int id) throws Exception {
+    public static Lahjaehdotus etsi(int id) {
         Connection yhteys = null;
         PreparedStatement kysely = null;
         ResultSet tulokset = null;
@@ -189,13 +233,18 @@ public class Lahjaehdotus {
                 loydetty.setOsoite(tulokset.getString("ostoOsoite"));
                 loydetty.setLisaaja(tulokset.getString("lisaaja"));
                 loydetty.setMaxVaraukset(tulokset.getInt("maxVaraukset"));
+                
+                
             }
                 
-            } finally {
-                    tulokset.close();
-                    kysely.close();
-                    yhteys.close();
-            }
+        } catch (Exception e) {
+            
+        }
+        
+        try { tulokset.close(); } catch (Exception e1) {}
+        try { kysely.close(); } catch (Exception e2) {}
+        try { yhteys.close(); } catch (Exception e3) {}
+
         
         return loydetty;
     }
@@ -211,7 +260,7 @@ public class Lahjaehdotus {
                 yhteys = kanta.getYhteys();
                 
 
-                String sql = "SELECT * from Lahjaehdotus";
+                String sql = "SELECT * from Lahjaehdotus ORDER BY nimi";
                 kysely = yhteys.prepareStatement(sql);
                 tulokset = kysely.executeQuery();
 

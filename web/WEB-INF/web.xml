@@ -36,6 +36,14 @@
         <servlet-name>EtusivuServlet</servlet-name>
         <servlet-class>Lahjalista.Servlets.EtusivuServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>poistaServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.PoistaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>muokkaaServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.MuokkaaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListaServlet</servlet-name>
         <url-pattern>/ListaServlet</url-pattern>
@@ -72,12 +80,20 @@
         <servlet-name>EtusivuServlet</servlet-name>
         <url-pattern>/lahjalista</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>poistaServlet</servlet-name>
+        <url-pattern>/poista</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>muokkaaServlet</servlet-name>
+        <url-pattern>/muokkaa</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>lahjalista</welcome-file>
     </welcome-file-list>
 </web-app>
