@@ -15,25 +15,25 @@
             <div class="form-group">
                 <label class="col-md-2 control-label">Lahjan nimi</label>
                 <div class="col-md-10">
-                    <input type="text" class="form-control" name="nimi" placeholder="nimi">
+                    <input type="text" class="form-control" name="nimi" value="${nimi}" placeholder="nimi">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Hinta</label>
                 <div class="col-md-10">
-                    <input type="text" class="form-control" id="inputPrice" name="hinta" placeholder="hinta">
+                    <input type="text" class="form-control" id="inputPrice" name="hinta" value="${hinta}" placeholder="hinta">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Max Varaukset</label>
                 <div class="col-md-10">
-                    <input type="text" class="form-control" id="text" name="maxVaraukset" placeholder="max varaukset">
+                    <input type="text" class="form-control" id="text" name="maxVaraukset" value="${maxVaraukset}" placeholder="max varaukset">
                 </div>
             </div>
              <div class="form-group">
                 <label class="col-md-2 control-label">Ostopaikan url</label>
                 <div class="col-md-10">
-                        <input type="text" class="form-control" id="URL" name="ostoOsoite" placeholder="URL">
+                        <input type="text" class="form-control" id="URL" name="ostoOsoite" value="${ostoOsoite}" placeholder="URL">
                 </div>
             </div>
             <div class="form-group">

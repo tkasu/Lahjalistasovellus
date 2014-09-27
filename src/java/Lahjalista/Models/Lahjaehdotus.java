@@ -39,6 +39,8 @@ public class Lahjaehdotus {
         
         if (uusiNimi.trim().length() == 0) {
             virheet.put("nimi", "Nimi ei saa olla tyhjä.");
+        } else if (etsi(uusiNimi) != null) {
+            virheet.put("nimi", "Nimi löytyy jo tietokannasta!");
         } else {
             virheet.remove("nimi");
         }
@@ -221,6 +223,48 @@ public class Lahjaehdotus {
             String sql = "SELECT * FROM Lahjaehdotus WHERE id = ?";
             kysely = yhteys.prepareStatement(sql);
             kysely.setInt(1, id);
+
+            tulokset = kysely.executeQuery();
+
+            if (tulokset.next()) {
+                loydetty = new Lahjaehdotus();
+
+                loydetty.setId(tulokset.getInt("id"));
+                loydetty.setNimi(tulokset.getString("nimi"));
+                loydetty.setHinta(tulokset.getDouble("hinta"));
+                loydetty.setOsoite(tulokset.getString("ostoOsoite"));
+                loydetty.setLisaaja(tulokset.getString("lisaaja"));
+                loydetty.setMaxVaraukset(tulokset.getInt("maxVaraukset"));
+                
+                
+            }
+                
+        } catch (Exception e) {
+            
+        }
+        
+        try { tulokset.close(); } catch (Exception e1) {}
+        try { kysely.close(); } catch (Exception e2) {}
+        try { yhteys.close(); } catch (Exception e3) {}
+
+        
+        return loydetty;
+    }
+    
+    public static Lahjaehdotus etsi(String nimi) {
+        Connection yhteys = null;
+        PreparedStatement kysely = null;
+        ResultSet tulokset = null;
+        Lahjaehdotus loydetty = null;
+        
+        try {
+            Tietokanta kanta = new Tietokanta();
+            yhteys = kanta.getYhteys();
+
+
+            String sql = "SELECT * FROM Lahjaehdotus WHERE nimi = ?";
+            kysely = yhteys.prepareStatement(sql);
+            kysely.setString(1, nimi);
 
             tulokset = kysely.executeQuery();
 

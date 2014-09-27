@@ -12,7 +12,7 @@
     <div class="container">
         <h1>Admin</h1>
         <p>Kirjautunut käyttäjätunnuksella "${kirjautunut}"</p>
-        <p>Varattuja lahjoja ei voi vielä poistaa, tämä toteutetaan varausten yhteydessä ensi viikolla</p>
+        <p>Varattuja lahjoja ei voi vielä poistaa, tämä toteutetaan varausten yhteydessä ensi viikolla</p>  
 
 
         <br />

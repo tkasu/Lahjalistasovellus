@@ -43,15 +43,20 @@ public class LisaaServlet extends LahjalistaServlet {
 //        PrintWriter out = response.getWriter();
         
         Lahjaehdotus uusiLahja = new Lahjaehdotus();
-        uusiLahja.setNimi(request.getParameter("nimi"));
-        uusiLahja.setHinta(request.getParameter("hinta"));
-        uusiLahja.setOsoite(request.getParameter("ostoOsoite"));
+        String nimi = request.getParameter("nimi");
+        String hinta = request.getParameter("hinta");
+        String osoite = request.getParameter("ostoOsoite");
+        String maxVaraukset = request.getParameter("maxVaraukset");
+        uusiLahja.setNimi(nimi);
+        uusiLahja.setHinta(hinta);
+        uusiLahja.setOsoite(osoite);
+        uusiLahja.setMaxVaraukset(maxVaraukset);
         
         HttpSession session = request.getSession();
         Yllapitaja kirjautunut = (Yllapitaja)session.getAttribute("kirjautunut");
         uusiLahja.setLisaaja(kirjautunut.getUsername());
         
-        uusiLahja.setMaxVaraukset(request.getParameter("maxVaraukset"));
+        
         
 //        Collection<String> virheet = uusiLahja.getVirheet();
 //        
@@ -75,6 +80,11 @@ public class LisaaServlet extends LahjalistaServlet {
             
             request.setAttribute("virheet", virheet);
             request.setAttribute("lahja", uusiLahja);
+            
+            request.setAttribute("nimi", nimi);
+            request.setAttribute("hinta", hinta);
+            request.setAttribute("ostoOsoite", osoite);
+            request.setAttribute("maxVaraukset", maxVaraukset);
             
             naytaJSP("lisaaLahja.jsp", request, response);
         }
