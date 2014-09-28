@@ -2,7 +2,6 @@ package Lahjalista.Models;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
@@ -11,18 +10,15 @@ import javax.sql.DataSource;
 
 public class Tietokanta {
 
-    private Connection yhteys;
+    private DataSource yhteysVarasto;
     
-    public Tietokanta () throws NamingException, SQLException {
+    public Tietokanta () throws NamingException {
         InitialContext cxt = new InitialContext();
-        DataSource yhteysVarasto = (DataSource) cxt.lookup("java:/comp/env/jdbc/tomikasu");
-        Connection yhteys = yhteysVarasto.getConnection(); 
-        
-        this.yhteys = yhteys;
+        this.yhteysVarasto = (DataSource)cxt.lookup("java:/comp/env/jdbc/tomikasu");
     }
     
-    public Connection getYhteys()  {  
-        return this.yhteys;
+    public Connection getYhteys() throws SQLException {  
+        return yhteysVarasto.getConnection();
     }
     
     
