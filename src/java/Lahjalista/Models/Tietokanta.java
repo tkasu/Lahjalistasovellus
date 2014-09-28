@@ -10,15 +10,10 @@ import javax.sql.DataSource;
 
 public class Tietokanta {
 
-    private DataSource yhteysVarasto;
-    
-    public Tietokanta () throws NamingException {
+    public static Connection getYhteys() throws SQLException, NamingException {  
         InitialContext cxt = new InitialContext();
-        this.yhteysVarasto = (DataSource)cxt.lookup("java:/comp/env/jdbc/tomikasu");
-    }
-    
-    public Connection getYhteys() throws SQLException {  
-        return yhteysVarasto.getConnection();
+        DataSource yhteysVarasto = (DataSource)cxt.lookup("java:/comp/env/jdbc/tomikasu");
+        return yhteysVarasto.getConnection(); 
     }
     
     

@@ -16,11 +16,7 @@ import javax.servlet.http.HttpSession;
 
 public class KirjautumisServlet extends LahjalistaServlet {
 
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-      
-    }
+   
 
     
     @Override
@@ -49,7 +45,7 @@ public class KirjautumisServlet extends LahjalistaServlet {
         try {
             kayttaja = Yllapitaja.etsiYllapitajaTunnuksilla(kayttajatunnus, salasana);
         } catch (Exception e) {
-            
+            session.setAttribute("ilmoitus", e.getMessage());
         }
                 
         if (kayttaja != null) {

@@ -13,7 +13,7 @@ import java.util.Map;
 import javax.naming.NamingException;
 
 
-public class Lahjaehdotus {
+public class Lahjaehdotus{
     private int id;
     private String nimi;
     private double hinta;
@@ -23,7 +23,6 @@ public class Lahjaehdotus {
     private Map<String, String> virheet = new HashMap<String, String>();
     
     public Lahjaehdotus() {
-        
     }
     
     public void setId(int uusiId) {
@@ -36,10 +35,11 @@ public class Lahjaehdotus {
     
     public void setNimi(String uusiNimi) {
         this.nimi = uusiNimi;
+        Lahjaehdotus vastaava = etsi(uusiNimi);
         
         if (uusiNimi.trim().length() == 0) {
             virheet.put("nimi", "Nimi ei saa olla tyhjä.");
-        } else if (etsi(uusiNimi) != null) {
+        } else if (vastaava != null && vastaava.getId() != this.getId()) {
             virheet.put("nimi", "Nimi löytyy jo tietokannasta!");
         } else {
             virheet.remove("nimi");
@@ -126,6 +126,80 @@ public class Lahjaehdotus {
         return virheet.values();
     }
     
+    public int getVaraustenMaara() throws NamingException, SQLException {
+        String sql = "SELECT Count(maara) loydetyt FROM Varaus WHERE lahja_id = ?";
+        
+        Connection yhteys = null;
+        PreparedStatement kysely = null;
+        ResultSet tulokset = null;
+        
+        int loydetyt = 9999;
+        
+        try {
+            yhteys = Tietokanta.getYhteys();
+            kysely = yhteys.prepareStatement(sql);
+            kysely.setInt(1, this.getId());
+
+            tulokset = kysely.executeQuery();
+
+            tulokset.next();
+            loydetyt = tulokset.getInt("loydetyt");
+        } catch (Exception e) {
+            
+        } finally {
+            try { tulokset.close(); } catch (Exception e1) {}
+            try { kysely.close(); } catch (Exception e2) {}
+            try { yhteys.close(); } catch (Exception e3) {}
+        }
+        return loydetyt;
+        
+    }
+    
+    
+    
+    public static List<Vieras> getVaranneet(int hakuLahjaId) {
+        String sql = "SELECT Vieras.id id, Vieras.nimi nimi, Vieras.puhnro puhnro, Vieras.email email FROM Vieras INNER JOIN Varaus ON vieras.id = varaus.varaaja_id INNER JOIN Lahjaehdotus ON Lahjaehdotus.id = Varaus.lahja_id WHERE Lahjaehdotus.id = ?";
+        
+        Connection yhteys = null;
+        PreparedStatement kysely = null;
+        ResultSet tulokset = null;
+        ArrayList<Vieras> varanneet = new ArrayList<Vieras>();;
+        
+        try {
+            yhteys = Tietokanta.getYhteys();
+            
+            kysely = yhteys.prepareStatement(sql);
+            kysely.setInt(1, hakuLahjaId);
+
+            tulokset = kysely.executeQuery();
+
+            while (tulokset.next()) {
+
+                Vieras varaaja = new Vieras();
+
+                varaaja.setId(tulokset.getInt("id"));
+                varaaja.setNimi(tulokset.getString("nimi"));
+                varaaja.setPuhNro(tulokset.getString("puhnro"));
+                varaaja.setEmail(tulokset.getString("email"));
+                
+
+                varanneet.add(varaaja);
+            }
+            
+        } catch (Exception e) {
+            
+        } finally {
+
+            try { tulokset.close(); } catch (Exception e1) {}
+            try { kysely.close(); } catch (Exception e2) {}
+            try { yhteys.close(); } catch (Exception e3) {}
+            
+        }
+        
+        return varanneet;
+      
+    }
+    
     
     @Override
     public String toString() {
@@ -137,17 +211,14 @@ public class Lahjaehdotus {
         Connection yhteys = null;
         PreparedStatement kysely = null;
         
-        try {
-            Tietokanta kanta = new Tietokanta();
-            yhteys = kanta.getYhteys();
-            kysely = yhteys.prepareStatement(sql);
-            kysely.setInt(1, this.getId());
+        yhteys = Tietokanta.getYhteys();
+        kysely = yhteys.prepareStatement(sql);
+        kysely.setInt(1, this.getId());
+
+        kysely.executeUpdate();
             
-            kysely.executeUpdate();
-        } finally {
-            kysely.close();
-            yhteys.close();
-        }
+        try { kysely.close(); } catch (Exception e2) {}
+        try { yhteys.close(); } catch (Exception e3) {}
             
     }
     
@@ -155,24 +226,21 @@ public class Lahjaehdotus {
         String sql = "UPDATE Lahjaehdotus SET nimi = ?, hinta = ?, ostoOsoite = ?, maxVaraukset = ? WHERE id = ?";
         Connection yhteys = null;
         PreparedStatement kysely = null;
+
+        yhteys = Tietokanta.getYhteys();
+        kysely = yhteys.prepareStatement(sql);
+
+        kysely.setString(1, this.getNimi());
+        kysely.setDouble(2, this.getHinta());
+        kysely.setString(3, this.getOsoite());
+        kysely.setInt(4, this.getMaxVaraukset());
+        kysely.setInt(5, this.getId());
+
+        kysely.executeUpdate();
         
-        try {
-            Tietokanta kanta = new Tietokanta();
-            yhteys = kanta.getYhteys();
-            kysely = yhteys.prepareStatement(sql);
+        try { kysely.close(); } catch (Exception e2) {}
+        try { yhteys.close(); } catch (Exception e3) {}
             
-            kysely.setString(1, this.getNimi());
-            kysely.setDouble(2, this.getHinta());
-            kysely.setString(3, this.getOsoite());
-            kysely.setInt(4, this.getMaxVaraukset());
-            kysely.setInt(5, this.getId());
-            
-            kysely.executeUpdate();
-            
-        } finally {
-            kysely.close();
-            yhteys.close();
-        }
         
     }
     
@@ -181,32 +249,26 @@ public class Lahjaehdotus {
         Connection yhteys = null;
         PreparedStatement kysely = null;
         ResultSet tulokset = null;
+
+        yhteys = Tietokanta.getYhteys();
+        kysely = yhteys.prepareStatement(sql);
+
+        kysely.setString(1, this.getNimi());
+        kysely.setDouble(2, this.getHinta());
+        kysely.setString(3, this.getOsoite());
+        kysely.setString(4, this.getLisaaja());
+        kysely.setInt(5, this.getMaxVaraukset());
+
+        tulokset = kysely.executeQuery();
+        tulokset.next();
+
+        this.setId(tulokset.getInt(1));
+            
         
-        try {
-            Tietokanta kanta = new Tietokanta();
-            yhteys = kanta.getYhteys();
-            kysely = yhteys.prepareStatement(sql);
-            
-            kysely.setString(1, this.getNimi());
-            kysely.setDouble(2, this.getHinta());
-            kysely.setString(3, this.getOsoite());
-            kysely.setString(4, this.getLisaaja());
-            kysely.setInt(5, this.getMaxVaraukset());
-            
-            tulokset = kysely.executeQuery();
-            tulokset.next();
-            
-            this.setId(tulokset.getInt(1));
-            
-        //try { tulokset.close(); } catch (Exception e) {}
-        //try { kysely.close(); } catch (Exception e) {}
-        //try { yhteys.close(); } catch (Exception e) {}
         
-        } finally {
-            tulokset.close();
-            kysely.close();
-            yhteys.close();
-        }  
+        try { tulokset.close(); } catch (Exception e1) {}
+        try { kysely.close(); } catch (Exception e2) {}
+        try { yhteys.close(); } catch (Exception e3) {}
     }
     
     public static Lahjaehdotus etsi(int id) {
@@ -216,8 +278,7 @@ public class Lahjaehdotus {
         Lahjaehdotus loydetty = null;
         
         try {
-            Tietokanta kanta = new Tietokanta();
-            yhteys = kanta.getYhteys();
+            yhteys = Tietokanta.getYhteys();
 
 
             String sql = "SELECT * FROM Lahjaehdotus WHERE id = ?";
@@ -251,15 +312,14 @@ public class Lahjaehdotus {
         return loydetty;
     }
     
-    public static Lahjaehdotus etsi(String nimi) {
+    public Lahjaehdotus etsi(String nimi) {
         Connection yhteys = null;
         PreparedStatement kysely = null;
         ResultSet tulokset = null;
         Lahjaehdotus loydetty = null;
         
         try {
-            Tietokanta kanta = new Tietokanta();
-            yhteys = kanta.getYhteys();
+            yhteys = Tietokanta.getYhteys();
 
 
             String sql = "SELECT * FROM Lahjaehdotus WHERE nimi = ?";
@@ -293,50 +353,47 @@ public class Lahjaehdotus {
         return loydetty;
     }
     
-    public static List<Lahjaehdotus> getKaikkiLahjat(String hakuehto) throws Exception{
-            Connection yhteys = null;
-            PreparedStatement kysely = null;
-            ResultSet tulokset = null;
-            ArrayList<Lahjaehdotus> lahjat = new ArrayList<Lahjaehdotus>();
+    public static List<Lahjaehdotus> getKaikkiLahjat(String hakuehto) {
+        Connection yhteys = null;
+        PreparedStatement kysely = null;
+        ResultSet tulokset = null;
+        ArrayList<Lahjaehdotus> lahjat = new ArrayList<Lahjaehdotus>();
         
-            try {
-                Tietokanta kanta = new Tietokanta();
-                yhteys = kanta.getYhteys();
-                
+        try {
+            yhteys = Tietokanta.getYhteys();
 
-                String sql = "SELECT * from Lahjaehdotus WHERE LOWER(nimi) LIKE LOWER(?) ORDER BY nimi";
-                kysely = yhteys.prepareStatement(sql);
-                kysely.setString(1, "%" + hakuehto + "%");
-                
-                tulokset = kysely.executeQuery();
+            String sql = "SELECT * from Lahjaehdotus WHERE LOWER(nimi) LIKE LOWER(?) ORDER BY nimi";
+            kysely = yhteys.prepareStatement(sql);
+            kysely.setString(1, "%" + hakuehto + "%");
 
-                lahjat = new ArrayList<Lahjaehdotus>();
+            tulokset = kysely.executeQuery();
 
-                while(tulokset.next()) {
-                        //private int it;
-                        //private String nimi;
-                        //private double hinta;
-                        //private String ostoOsoite;
-                        //private int lisaaja;
-                        //private int maxVaraukset;
+            lahjat = new ArrayList<Lahjaehdotus>();
 
-                    Lahjaehdotus l = new Lahjaehdotus();
-                    
-                    l.setId(tulokset.getInt("id"));
-                    l.setNimi(tulokset.getString("nimi"));
-                    l.setHinta(tulokset.getDouble("hinta"));
-                    l.setOsoite(tulokset.getString("ostoOsoite"));
-                    l.setLisaaja(tulokset.getString("lisaaja"));
-                    l.setMaxVaraukset(tulokset.getInt("maxVaraukset"));
-                    
-                    lahjat.add(l);
-                }
-            } finally {
-                tulokset.close();
-                kysely.close();
-                yhteys.close();
+            while (tulokset.next()) {
+
+                Lahjaehdotus lahja = new Lahjaehdotus();
+
+                lahja.setId(tulokset.getInt("id"));
+                lahja.setNimi(tulokset.getString("nimi"));
+                lahja.setHinta(tulokset.getDouble("hinta"));
+                lahja.setOsoite(tulokset.getString("ostoOsoite"));
+                lahja.setLisaaja(tulokset.getString("lisaaja"));
+                lahja.setMaxVaraukset(tulokset.getInt("maxVaraukset"));
+
+                lahjat.add(lahja);
             }
             
-            return lahjat;
+        } catch (Exception e) {
+            
+        } finally {
+
+            try { tulokset.close(); } catch (Exception e1) {}
+            try { kysely.close(); } catch (Exception e2) {}
+            try { yhteys.close(); } catch (Exception e3) {}
+            
+        }
+
+        return lahjat;
     }
 }

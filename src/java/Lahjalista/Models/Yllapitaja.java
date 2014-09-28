@@ -4,6 +4,8 @@ package Lahjalista.Models;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.naming.NamingException;
 
 public class Yllapitaja {
     private String kayttajatunnus;
@@ -25,7 +27,7 @@ public class Yllapitaja {
     } 
    
     
-    public static Yllapitaja etsiYllapitajaTunnuksilla(String kayttajatunnus, String salasana) throws Exception {
+    public static Yllapitaja etsiYllapitajaTunnuksilla(String kayttajatunnus, String salasana) throws SQLException, NamingException {
         String sql = "SELECT kayttajatunnus, salasana FROM Yllapitaja WHERE kayttajatunnus = ? AND salasana = ?";
         Connection yhteys = null;
         PreparedStatement kysely = null;
@@ -33,32 +35,42 @@ public class Yllapitaja {
         
         Yllapitaja kirjautunut = null;
         
-        try {
-            Tietokanta kanta = new Tietokanta();
-            yhteys = kanta.getYhteys();
-            kysely = yhteys.prepareStatement(sql);
-            kysely.setString(1, kayttajatunnus);
-            kysely.setString(2, salasana);
-            tulokset = kysely.executeQuery();
-            
-            if (tulokset.next()) {
-                kirjautunut = new Yllapitaja();
-                String tempTunnus = tulokset.getString("kayttajatunnus");
-                String tempSalasana = tulokset.getString("salasana");
-                kirjautunut.setUsername(tempTunnus);
-                kirjautunut.setPassword(tempSalasana);
-            }
-            
-        } finally {
-            tulokset.close();
-            kysely.close();
-            yhteys.close();
+
+        yhteys = Tietokanta.getYhteys();
+        kysely = yhteys.prepareStatement(sql);
+        kysely.setString(1, kayttajatunnus);
+        kysely.setString(2, salasana);
+        tulokset = kysely.executeQuery();
+
+        if (tulokset.next()) {
+            kirjautunut = new Yllapitaja();
+            String tempTunnus = tulokset.getString("kayttajatunnus");
+            String tempSalasana = tulokset.getString("salasana");
+            kirjautunut.setUsername(tempTunnus);
+            kirjautunut.setPassword(tempSalasana);
         }
+        
+        if (tulokset != null) {
+            try { tulokset.close(); } catch (Exception e1) {}
+            tulokset = null;
+        }
+        if (kysely != null) {
+            try { kysely.close(); } catch (Exception e1) {}
+            kysely = null;
+        }
+        if (yhteys != null) {
+            try { yhteys.close(); } catch (Exception e1) {}
+            yhteys = null;
+        }
+
+        
+            
         
         
         return kirjautunut;
     }
     
+    @Override
     public String toString() {
         return this.kayttajatunnus;
     }

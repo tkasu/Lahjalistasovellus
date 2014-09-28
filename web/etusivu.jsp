@@ -16,8 +16,15 @@
             Kysymyksissä ja ongelmatilanteissa ota yhteyttä x@y.z.</p>
 
         <br />
-        <br />
-        <br />
+        
+        <c:if test="${ilmoitus != null}">
+            <div class="alert alert-info">${ilmoitus}</div>
+        </c:if>
+
+
+        <c:forEach var="virhe" items="${virheet}">
+            <div class="alert alert-danger">${virhe}</div>
+        </c:forEach>
 
 
 
@@ -38,7 +45,7 @@
                 <tr>
                     <td>nimi</td>
                     <td>hinta</td>
-                    <td>varauksia jäljellä</td>
+                    <td>Varausten määrä</td>
                     <td>Varaus</td>
                 </tr>
             </thead>
@@ -55,8 +62,16 @@
                             </c:otherwise>
                         </c:choose>
 
-                        <td>0/${lahja.maxVaraukset}</td>
-                        <td><button type="button" class="btn btn-default" data-toggle="modal" data-target="#varaaModal">Varaa</button></td>
+                        <td>${lahja.varaustenMaara} / ${lahja.maxVaraukset}</td>
+                        <c:choose>
+                            <c:when test="${lahja.varaustenMaara + 1 > lahja.maxVaraukset}">
+                                <td><button type="button" class="open-varaaModal btn btn-default disabled" data-toggle="modal" data-nimi="${lahja.nimi}" data-id="${lahja.id}" data-url="${lahja.osoite}" data-target="#varaaModal">Varaa</button></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td><button type="button" class="open-varaaModal btn btn-default" data-toggle="modal" data-nimi="${lahja.nimi}" data-id="${lahja.id}" data-url="${lahja.osoite}" data-target="#varaaModal">Varaa</button></td>
+                            </c:otherwise>
+                        </c:choose>
+                        
                     </tr>
                 </c:forEach>
             </tbody>
@@ -73,31 +88,44 @@
                     <h4 class="modal-title">Varaa lahja (ei toiminnallisuutta vielä)</h4>
                 </div>
                 <div class="modal-body">
-                    <p> olet varaamassa lahjaa xxx </p>
-                    <form class="form-horizontal" role="form" action="adminEtusivu.html" method="POST">
+                    
+                    <form class="form-horizontal" role="form" action="varaa" method="POST">
+                        <input type="hidden" name="lahja-id" id="lahja-id-hidden" value="">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Varattava lahja</label>
+                            <div class="col-md-10">
+                                <input type="text" name="lahja-nimi" id="lahja-nimi-hidden" class="form-control" id="lahja-url-hidden" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Esimerkki-URL</label>
+                            <div class="col-md-10">
+                                <input type="url" name="lahja-url" class="form-control" id="lahja-url-hidden" value="" disabled>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Varaajan nimi</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="Nimi" placeholder="Nimi (pakollinen)">
+                                <input type="text" class="form-control" name="nimi" placeholder="Nimi (pakollinen)">
                             </div> 
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Puh.nro.</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="Numero" placeholder="Numero">
+                                <input type="text" class="form-control" name="numero" placeholder="Numero">
                             </div> 
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Email</label>
                             <div class="col-md-10">
-                                <input type="text" class="form-control" name="Email" placeholder="email">
+                                <input type="text" class="form-control" name="email" placeholder="email">
                             </div> 
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                            <button type="submit" class="btn btn-primary">Varaa</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
-                    <button type="button" class="btn btn-primary">Varaa</button>
                 </div>
             </div>
 

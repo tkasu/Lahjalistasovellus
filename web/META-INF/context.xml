@@ -3,7 +3,7 @@
     <Resource name="jdbc/tomikasu" auth="Container"
         type="javax.sql.DataSource" removeAbandoned="true"
         removeAbandonedTimeout="30" maxActive="100"
-        maxIdle="30" maxWait="10000" username="tomikasu"
+        maxIdle="100" maxWait="10000" username="tomikasu"
         password="valentino"
         driverClassName="org.postgresql.Driver"
         url="jdbc:postgresql://localhost:5432/tomikasu" />

@@ -1,6 +1,7 @@
 package Lahjalista.Servlets;
 
 
+import Lahjalista.Models.Lahjaehdotus;
 import Lahjalista.Models.Tietokanta;
 import Lahjalista.Models.Vieras;
 import java.sql.Connection;
@@ -20,10 +21,11 @@ import javax.sql.DataSource;
 
 import javax.naming.NamingException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 // TESTILISTAUS, EI KÄYTÖSSÄ
 
-public class ListaServlet extends HttpServlet {
+public class ListaServlet extends LahjalistaServlet {
     
     private Connection yhteys;
 
@@ -33,34 +35,55 @@ public class ListaServlet extends HttpServlet {
         
         PrintWriter out = response.getWriter();
         
-        try {
-            Tietokanta kanta = new Tietokanta();
-            yhteys = kanta.getYhteys();
-        } catch (Exception e) {
-            out.println("Yhteysvirhe: " + e.getMessage());
-        }
-       
+////        try {
+////            Tietokanta kanta = new Tietokanta();
+////            yhteys = kanta.getYhteys();
+////        } catch (Exception e) {
+////            out.println("Yhteysvirhe: " + e.getMessage());
+////        }
+////       
+////        
+////        
+////        try {
+////            Vieras testi = new Vieras();
+////            testi.setId(1);
+////            testi.setNimi("a");
+////            testi.setEmail("b");
+////            testi.setPuhNro("c");
+////            
+////            List<Vieras> vieraat = testi.getVieraat();
+////            
+////            for (Vieras vieras : vieraat) {
+////                out.println(vieras);
+////                
+////            }
+//            
+//            
+//          
+//            
+//        } catch (Exception e) {
+//          out.println("KyselyVirhe: " + e.getMessage()); 
+//        }
+//        try {
+//            yhteys.close();
+//        } catch (Exception e) {
+//            out.println("SQL:n sulkuvirhe: " + e.getMessage());
+//        }
         
         
-        try {
-            Vieras testi = new Vieras(1, "a", "b", "c");
-            List<Vieras> vieraat = testi.getVieraat();
-            
-            for (Vieras vieras : vieraat) {
-                out.println(vieras);
+        List<Lahjaehdotus> lahjat = Lahjaehdotus.getKaikkiLahjat("");
+        
+        
+        for (Lahjaehdotus lahja : lahjat) {
+            out.println(lahja.getNimi() + " varanneet:");
+            List<Vieras> varanneet = Lahjaehdotus.getVaranneet(lahja.getId());
+            out.println(lahja.getId());
+            out.println(varanneet.size());
+            for (Vieras vieras : varanneet) {
+                out.println(vieras.getNimi());
             }
-            
-            
-          
-            
-        } catch (Exception e) {
-          out.println("KyselyVirhe: " + e.getMessage()); 
         }
-        try {
-            yhteys.close();
-        } catch (Exception e) {
-            out.println("SQL:n sulkuvirhe: " + e.getMessage());
-        }
+        
       }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

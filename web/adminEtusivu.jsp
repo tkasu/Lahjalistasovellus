@@ -52,10 +52,9 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <td>nimi
-                        </td>
+                        <td>nimi</td>                      
                         <td>hinta</td>
-                        <td>varauksia jäljellä</td>
+                        <td>varausten määrä</td>
                         <td>varanneet</td>
                         <td>Muokkaa/Poista</td>
                     </tr>
@@ -72,8 +71,20 @@
                                     <td></td> 
                                 </c:otherwise>
                             </c:choose>
-                            <td>0/${lahja.maxVaraukset}</td>
-                            <td>Matti, Seppo(Ei toimi vielä)</td>
+                                    
+                            <td>${lahja.varaustenMaara} / ${lahja.maxVaraukset}</td>
+                            
+                            <c:choose>
+                                <c:when test="${lahja.varaustenMaara > 0}">
+                                    <td><button class="btn btn-default" data-target="#"> Avaa varaukset</button> </td>
+                                </c:when>
+                                <c:otherwise>
+                                    <td><button class="btn btn-default disabled" data-target="#"> Avaa varaukset</button> </td>
+                                </c:otherwise>
+                            </c:choose>
+                            
+                                
+                           
                             <td><button class="open-muokkaaModal btn btn-default" data-toggle="modal" data-nimi="${lahja.nimi}" data-hinta="${lahja.hinta}" data-maxVaraukset="${lahja.maxVaraukset}" data-osoite="${lahja.osoite}" data-id="${lahja.id}" data-target="#muokkaaModal">Muokkaa</button></td>
                         </tr>
                     </c:forEach>

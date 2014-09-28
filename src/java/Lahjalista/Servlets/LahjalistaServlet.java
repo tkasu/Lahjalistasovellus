@@ -40,16 +40,18 @@ public class LahjalistaServlet extends HttpServlet {
     
     protected void haeLahjat(String hakuehto, HttpServletRequest request, HttpServletResponse response) {
         List<Lahjaehdotus> lahjat = null;
+        HttpSession session = request.getSession();
         if (hakuehto == null) {
             hakuehto = "";
         }
         try {
             lahjat = Lahjaehdotus.getKaikkiLahjat(hakuehto);
         } catch (Exception e) {
-            e.getMessage();
+            session.setAttribute("ilmoitus", e.getMessage());
         }
         request.setAttribute("lahjat", lahjat);
     }
+    
     
     protected void haeIlmoitus(HttpServletRequest request) {
         HttpSession session = request.getSession();

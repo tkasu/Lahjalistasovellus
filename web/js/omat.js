@@ -41,5 +41,33 @@ $(document).ready(function(){
 
           console.log('poistaKlikattu');
      });
-  });  
+  }); 
+  
+  $(document).ready(function(){
+     $('.open-varaaModal').bind('click', function(){
+          var id = $(this).attr('data-id');
+          var nimi = $(this).attr('data-nimi');
+          var url = $(this).attr('data-url');
+                             
+          $('#lahja-id-hidden').val(id);
+          $('#lahja-nimi-hidden').val(nimi);
+          $('#lahja-url-hidden').val(url);
+
+          console.log('poistaKlikattu');
+     });
+  });
+  
+  $(document).ready(function(){
+     $('.open-varanneetDropdown').bind('click', function(){
+          var id = $(this).attr('data-id');
+          var nimi = $(this).attr('data-nimi');
+          var url = $(this).attr('data-url');
+                             
+          $('#lahja-id-hidden').val(id);
+          $('#lahja-nimi-hidden').val(nimi);
+          $('#lahja-url-hidden').val(url);
+
+          console.log('poistaKlikattu');
+     });
+  });
 
