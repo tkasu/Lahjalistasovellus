@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 package Lahjalista.Servlets;
 
 import Lahjalista.Models.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -52,9 +44,24 @@ public class LahjalistaServlet extends HttpServlet {
         request.setAttribute("lahjat", lahjat);
     }
     
+    protected void haeVaraukset(String hakuehto, HttpServletRequest request, HttpServletResponse response)  {
+        List<Varaus> varaukset = null;
+        HttpSession session = request.getSession();
+        if (hakuehto == null) {
+            hakuehto = "";
+        }
+        try {
+            varaukset = Varaus.getVaraukset(hakuehto);
+        } catch (Exception e) {
+            session.setAttribute("ilmoitus", e.getMessage());
+        }
+        request.setAttribute("varaukset", varaukset);
+    }
+    
     
     protected void haeIlmoitus(HttpServletRequest request) {
         HttpSession session = request.getSession();
+        request.removeAttribute("ilmoitus"); // poistaa request-session ilmoituksen
         String ilmoitus = (String)session.getAttribute("ilmoitus");
         
         if (ilmoitus != null) {
@@ -62,6 +69,8 @@ public class LahjalistaServlet extends HttpServlet {
             request.setAttribute("ilmoitus", ilmoitus);
         }
     }
+    
+    
     
     protected void haeVirheet(HttpServletRequest request) {
         HttpSession session = request.getSession();

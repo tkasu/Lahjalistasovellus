@@ -5,6 +5,7 @@
 <t:pohja pageTitle="Lisää Lahjaehdotus">
     <ul class="nav nav-tabs">
         <li class="passive"><a href="admin">Lahjalista</a></li>
+        <li class="passive"><a href="varaukset">Varaukset</a></li>
         <li class="active"><a href="#">Lisää lahjaehdotus</a></li>
         <li class="passive"><a href="logout">Admin Sign Out</a></li>
     </ul>

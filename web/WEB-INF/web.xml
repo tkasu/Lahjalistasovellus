@@ -48,6 +48,22 @@
         <servlet-name>VaraaServlet</servlet-name>
         <servlet-class>Lahjalista.Servlets.VaraaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>VaraaEmailillaServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.VaraaEmailillaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VarauksetServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.VarauksetServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MuokkaaVarausServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.MuokkaaVarausServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PoistaVarausServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.PoistaVarausServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListaServlet</servlet-name>
         <url-pattern>/ListaServlet</url-pattern>
@@ -95,6 +111,22 @@
     <servlet-mapping>
         <servlet-name>VaraaServlet</servlet-name>
         <url-pattern>/varaa</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VaraaEmailillaServlet</servlet-name>
+        <url-pattern>/varaanyky</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VarauksetServlet</servlet-name>
+        <url-pattern>/varaukset</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MuokkaaVarausServlet</servlet-name>
+        <url-pattern>/muokkaaVaraus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PoistaVarausServlet</servlet-name>
+        <url-pattern>/poistaVaraus</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

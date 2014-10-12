@@ -85,12 +85,11 @@
             <div class="modal-content" >
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Varaa lahja (ei toiminnallisuutta vielä)</h4>
+                    <h4 class="modal-title">Varaa lahja</h4>
                 </div>
                 <div class="modal-body">
-                    
                     <form class="form-horizontal" role="form" action="varaa" method="POST">
-                        <input type="hidden" name="lahja-id" id="lahja-id-hidden" value="">
+                        <input type="hidden" name="lahja-id" id="id-kentta" value=""/>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Varattava lahja</label>
                             <div class="col-md-10">
@@ -103,6 +102,8 @@
                                 <input type="url" name="lahja-url" class="form-control" id="lahja-url-hidden" value="" disabled>
                             </div>
                         </div>
+                        <br>
+                        <h4 class ="modal-title">Uusi Varaaja</h4>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Varaajan nimi</label>
                             <div class="col-md-10">
@@ -110,22 +111,38 @@
                             </div> 
                         </div>
                         <div class="form-group">
+                            <label class="col-md-2 control-label">Email</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" name="email" placeholder="email (pakollinen)">
+                            </div> 
+                        </div>
+                        <div class="form-group">
                             <label class="col-md-2 control-label">Puh.nro.</label>
                             <div class="col-md-10">
                                 <input type="text" class="form-control" name="numero" placeholder="Numero">
                             </div> 
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Email</label>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control" name="email" placeholder="email">
-                            </div> 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                        </div> 
+                        <div class="modal-body right">
                             <button type="submit" class="btn btn-primary">Varaa</button>
                         </div>
                     </form>
+                    <br>
+                    <form class="form-horizontal" role="form" action="varaanyky" method="POST">
+                        <input type="hidden" name="lahja-id" id="id-kentta2" value=""/>
+                        <h4 class ="modal-title">Jo aikaisemmin varanneet</h4>
+                        <label class="col-md-2 control-label">Email</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" name="email" placeholder="email (pakollinen)">
+                        </div>
+                        <br>
+                        <br>
+                        <div class="modal-body right">
+                            <button type="submit" class="btn btn-primary">Varaa</button>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Sulje</button>
+                    </div>
                 </div>
             </div>
 

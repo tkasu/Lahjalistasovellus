@@ -5,6 +5,7 @@
 <t:pohja pageTitle="Admin Lahjalista">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#">Lahjalista</a></li>
+        <li class="passive"><a href="varaukset">Varaukset</a></li>
         <li class="passive"><a href="lisaa">Lisää lahjaehdotus</a></li>
         <li class="passive"><a href="logout">Admin Sign Out</a></li>
     </ul>
@@ -12,7 +13,6 @@
     <div class="container">
         <h1>Admin</h1>
         <p>Kirjautunut käyttäjätunnuksella "${kirjautunut}"</p>
-        <p>Varattuja lahjoja ei voi vielä poistaa, tämä toteutetaan varausten yhteydessä ensi viikolla</p>  
 
 
         <br />
@@ -76,10 +76,10 @@
                             
                             <c:choose>
                                 <c:when test="${lahja.varaustenMaara > 0}">
-                                    <td><button class="btn btn-default" data-target="#"> Avaa varaukset</button> </td>
+                                    <td><a class="btn btn-default" href="varaukset?hakukentta=${lahja.nimi}"> Avaa varaukset</a> </td>
                                 </c:when>
                                 <c:otherwise>
-                                    <td><button class="btn btn-default disabled" data-target="#"> Avaa varaukset</button> </td>
+                                    <td><a class="btn btn-default disabled" href="#"> Avaa varaukset</a>
                                 </c:otherwise>
                             </c:choose>
                             

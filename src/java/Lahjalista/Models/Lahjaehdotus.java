@@ -34,7 +34,11 @@ public class Lahjaehdotus{
     }
     
     public void setNimi(String uusiNimi) {
+        
+        uusiNimi = uusiNimi.replace('<', ' ');
+        uusiNimi = uusiNimi.replace('>', ' ');
         this.nimi = uusiNimi;
+        
         Lahjaehdotus vastaava = etsi(uusiNimi);
         
         if (uusiNimi.trim().length() == 0) {
@@ -312,7 +316,7 @@ public class Lahjaehdotus{
         return loydetty;
     }
     
-    public Lahjaehdotus etsi(String nimi) {
+    public static Lahjaehdotus etsi(String nimi) {
         Connection yhteys = null;
         PreparedStatement kysely = null;
         ResultSet tulokset = null;

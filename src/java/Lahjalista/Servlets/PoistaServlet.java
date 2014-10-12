@@ -6,9 +6,12 @@
 package Lahjalista.Servlets;
 
 import Lahjalista.Models.Lahjaehdotus;
+import Lahjalista.Models.Varaus;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,24 +28,24 @@ public class PoistaServlet extends LahjalistaServlet {
         
         HttpSession session = request.getSession();
         int id = Integer.parseInt(request.getParameter("poista-id"));
+        List<Varaus> varatut = Varaus.etsiLahjalla(id);
         
         Lahjaehdotus lahja = Lahjaehdotus.etsi(id);
         if (lahja == null) {
             session.setAttribute("ilmoitus", "Virhe! Lahjaa ei löytnyt tietokannasta.");
-            
+        } else if (varatut.size() != 0) {
+            session.setAttribute("ilmoitus", "Virhe! Lahjalta löytyi varauksia, poista ensin varaukset!");
         } else {
+            try {
+                String tempNimi = lahja.getNimi();
+                lahja.poistaKannasta();
+                String ilmoitus = "Lahjaehdotus '" + tempNimi + "' poistettu onnistuneesti.";
+                session.setAttribute("ilmoitus", ilmoitus);
 
-                try {
-                    String tempNimi = lahja.getNimi();
-                    lahja.poistaKannasta();
-                    String ilmoitus = "Lahjaehdotus '" + tempNimi + "' poistettu onnistuneesti.";
-                    session.setAttribute("ilmoitus", ilmoitus);
-                    
-                } catch (Exception e) {  
-                    session.setAttribute("ilmoitus", e.getMessage());
-                }
-                
-               
+            } catch (Exception e) {  
+                session.setAttribute("ilmoitus", e.getMessage());
+            }
+         
         }
         response.sendRedirect("admin");
     }

@@ -10,5 +10,11 @@ INSERT INTO Vieras (nimi, email, puhnro) VALUES ('Anton', 'genji@hanken.se', '04
 
 INSERT INTO Vieras (nimi) VALUES ('Heidi');
 
-INSERT INTO Vieras (nimi, puhnro) VALUES ('Sari', '0104567891'); 
+INSERT INTO Vieras (nimi, puhnro) VALUES ('Sari', '0104567891');
+
+INSERT INTO Varaus (lahja_id, varaaja_id, maara) VALUES (3, 1, 1);
+
+INSERT INTO Varaus (lahja_id, varaaja_id, maara) VALUES (2, 2, 1);
+
+INSERT INTO Varaus (lahja_id, varaaja_id, maara) VALUES (1, 3, 100);
 

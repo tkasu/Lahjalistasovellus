@@ -14,7 +14,7 @@ CREATE TABLE Lahjaehdotus (
 CREATE TABLE Vieras (
 	id SERIAL primary key,
 	nimi varchar(60) not null,
-	email varchar(50) unique,
+	email varchar(50) unique not null,
 	puhnro varchar (20));
 
 CREATE TABLE Varaus (

@@ -24,7 +24,6 @@
           $('#hintaKentta').val(hinta);
           $('#osoiteKentta').val(osoite);
           $('#maxVarauksetKentta').val(maxVaraukset);
-          console.log('klikattu');
      });
   });
   
@@ -33,13 +32,11 @@
 $(document).ready(function(){
      $('.open-poistaModal').bind('click', function(){
           var id = $('#id-kentta').attr('value');
-          var nimi = $('#hidNimiKentta').attr('value');
-                    
+          var nimi = $('#hidNimiKentta').attr('value');              
           
           $('#poistaID').val(id);
           $('#poistaNimi').val(nimi);
 
-          console.log('poistaKlikattu');
      });
   }); 
   
@@ -49,25 +46,29 @@ $(document).ready(function(){
           var nimi = $(this).attr('data-nimi');
           var url = $(this).attr('data-url');
                              
-          $('#lahja-id-hidden').val(id);
+          $('#id-kentta').val(id);
+          $('#id-kentta2').val(id);
           $('#lahja-nimi-hidden').val(nimi);
           $('#lahja-url-hidden').val(url);
 
-          console.log('poistaKlikattu');
      });
   });
   
   $(document).ready(function(){
-     $('.open-varanneetDropdown').bind('click', function(){
-          var id = $(this).attr('data-id');
-          var nimi = $(this).attr('data-nimi');
-          var url = $(this).attr('data-url');
+     $('.open-muokkaaVarausModal').bind('click', function(){
+          var lahjaId = $(this).attr('data-lId');
+          var lahjaNimi = $(this).attr('data-lNimi');
+          var varausId = $(this).attr('data-vId');
+          var varausNimi = $(this).attr('data-vNimi');
                              
-          $('#lahja-id-hidden').val(id);
-          $('#lahja-nimi-hidden').val(nimi);
-          $('#lahja-url-hidden').val(url);
+          $('#lId-kentta').val(lahjaId);
+          $('#lId-kentta2').val(lahjaId);
+          $('#vId-kentta').val(varausId);
+          $('#vId-kentta2').val(varausId);
+          $('#lNimi-kentta').val(lahjaNimi);
+          $('#vNimi-kentta').val(varausNimi);
 
-          console.log('poistaKlikattu');
      });
   });
+  
 

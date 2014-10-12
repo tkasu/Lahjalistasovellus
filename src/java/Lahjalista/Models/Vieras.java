@@ -33,6 +33,9 @@ public class Vieras {
     }
     
     public void setNimi(String uusiNimi) {
+        
+        uusiNimi = uusiNimi.replace('<', ' ');
+        uusiNimi = uusiNimi.replace('>', ' ');
         this.nimi = uusiNimi;
         
         if (uusiNimi.trim().length() == 0) {
@@ -47,10 +50,20 @@ public class Vieras {
     }
     
     public void setEmail(String uusiEmail) {
+        
+        uusiEmail = uusiEmail.replace('<', ' ');
+        uusiEmail = uusiEmail.replace('>', ' ');
         this.email = uusiEmail;
-//        if (etsiEmaililla(String uusiEmail) != null) {
-//            virheet.put("email", "Email löytyy jo tietokannasta!");
-//        }
+        
+        Vieras vastaava = etsiEmaililla(uusiEmail);
+        
+        if (uusiEmail.trim().length() == 0) {
+            virheet.put("email", "Email ei saa olla tyhjä.");
+        } else if (vastaava != null && vastaava.getId() != this.getId()) {
+            virheet.put("email", "Email löytyy jo tietokannasta!");
+        } else {
+            virheet.remove("email");
+        }
     }
     
     public String getEmail() {
@@ -105,16 +118,52 @@ public class Vieras {
 
     }
     
-    
-    public Vieras etsi(String nimi) {
+    public static Vieras etsi(int id) {
         Connection yhteys = null;
         PreparedStatement kysely = null;
         ResultSet tulokset = null;
         Vieras loydetty = null;
         
         try {
-            Tietokanta kanta = new Tietokanta();
-            yhteys = kanta.getYhteys();
+            yhteys = Tietokanta.getYhteys();
+
+
+            String sql = "SELECT * FROM Vieras WHERE id = ?";
+            kysely = yhteys.prepareStatement(sql);
+            kysely.setInt(1, id);
+
+            tulokset = kysely.executeQuery();
+
+            if (tulokset.next()) {
+                loydetty = new Vieras();
+
+                loydetty.setId(tulokset.getInt("id"));
+                loydetty.setNimi(tulokset.getString("nimi"));
+                loydetty.setEmail(tulokset.getString("email"));
+                loydetty.setPuhNro(tulokset.getString("puhnro"));
+                          
+            }
+                
+        } catch (Exception e) {
+            
+        }
+        
+        try { tulokset.close(); } catch (Exception e1) {}
+        try { kysely.close(); } catch (Exception e2) {}
+        try { yhteys.close(); } catch (Exception e3) {}
+
+        
+        return loydetty;
+    }
+    
+    public static Vieras etsi(String nimi) {
+        Connection yhteys = null;
+        PreparedStatement kysely = null;
+        ResultSet tulokset = null;
+        Vieras loydetty = null;
+        
+        try {
+            yhteys = Tietokanta.getYhteys();
 
 
             String sql = "SELECT * FROM Vieras WHERE nimi = ?";
@@ -145,15 +194,14 @@ public class Vieras {
         return loydetty;
     }
     
-    public Vieras etsiEmaililla(String email) {
+    public static Vieras etsiEmaililla(String email) {
         Connection yhteys = null;
         PreparedStatement kysely = null;
         ResultSet tulokset = null;
         Vieras loydetty = null;
         
         try {
-            Tietokanta kanta = new Tietokanta();
-            yhteys = kanta.getYhteys();
+            yhteys = Tietokanta.getYhteys();
 
 
             String sql = "SELECT * FROM Vieras WHERE email = ?";
@@ -192,8 +240,7 @@ public class Vieras {
         ResultSet tulokset = null;
         ArrayList<Vieras> vieraat = new ArrayList<Vieras>();
 
-        Tietokanta kanta = new Tietokanta();
-        yhteys = kanta.getYhteys();
+        yhteys = Tietokanta.getYhteys();
 
 
         String sql = "SELECT * from Vieras";
