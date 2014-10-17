@@ -21,3 +21,23 @@
 (Muokkaa lahjaehdotusta)>(Kirjautuminen),
 (Poista lahjaehdotus)>(Kirjautuminen),
 (Varaa lahjaehdotuksen)
+
+
+[JavaModels]-[LahjalistaServlet|-yleiskäyttö-metodit],
+[LahjalistaServlet]<-.-extends[MuutServletit],
+[JavaModels]-[MuutServletit],
+[MuutServletit]-[Näkymät]
+[JavaModels]-.->use[Tietokanta]
+
+[Aloitussivu|EtusivuServlet.java]<->[VaraaModal|VaraaServlet.java; VaraaEmailillaServlet.java],
+[Aloitussivu]-[Kirjautuminen| KirjautumisServlet.java],
+[Kirjautuminen]->[AdminEtusivu| AdminServlet.java]
+[AdminEtusivu]<->[MuokkaaModal (Lahjaehdotus)|MuokkaaServlet.java; PoistaServlet.java],
+[AdminEtusivu]->[Varaukset|VarauksetServlet.java],
+[Varaukset]<->[MuokkaaVarauksetModal|MuokkaaVarausServlet.java; PoistaVarausServlet.java],
+[AdminEtusivu]<->[Lahjan lisäyssivu| LisaaServlet.java],
+[AdminEtusivu]->[Uloskirjautuminen| UloskirjautumisServlet.java],
+[Aloitussivu]<-[Uloskirjautuminen]
+
+
+

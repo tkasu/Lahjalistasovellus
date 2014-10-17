@@ -62,11 +62,7 @@ public class Yllapitaja {
             try { yhteys.close(); } catch (Exception e1) {}
             yhteys = null;
         }
-
-        
-            
-        
-        
+  
         return kirjautunut;
     }
     

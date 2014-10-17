@@ -39,15 +39,6 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Liitä tilinumero
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
                     <button type="submit" class="btn btn-default">Lisää Lahja</button>
                 </div>
             </div>

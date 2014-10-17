@@ -51,7 +51,6 @@ public class MuokkaaServlet extends LahjalistaServlet {
         }
         
         response.sendRedirect("admin");
-        //out.println(lahja);
     }
 
 }

@@ -132,15 +132,6 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Liitä tilinumero
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
 
                         </div>
                         <div class="modal-footer">
@@ -164,27 +155,6 @@
     </div>
 
 
-    <!--- AINAKIN väliaikaisesti poissa käytöstä
-        <div class="open-muokkaaModal modal fade" id="poistaModal" tabindex="-1" role="dialog">
-            <input type="hidden" name="lahja-id" id="poistaId" value="" />
-            <input type="hidden" name="nimi" id="poistaNimi" value="" />
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title">Haluatko varmasti poistaa lahjan?</h4>
-                    </div>
-                    <div class="modal-footer">
-                        <form action="poista" method="POST">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Palaa takaisin</button>
-                            <button type="submit" class="btn btn-danger">Poista Lahja</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        --->
 </t:pohja>     
 
 

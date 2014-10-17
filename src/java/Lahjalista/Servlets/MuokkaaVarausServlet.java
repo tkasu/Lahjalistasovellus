@@ -1,17 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Lahjalista.Servlets;
 
 import Lahjalista.Models.Lahjaehdotus;
 import Lahjalista.Models.Varaus;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashSet;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,14 +29,14 @@ public class MuokkaaVarausServlet extends LahjalistaServlet {
             Lahjaehdotus uusiLahja = Lahjaehdotus.etsi(lahjaNimi);
             if (uusiLahja == null) {
                 session.setAttribute("ilmoitus", "Virhe! Lahjaa ei löytnyt tietokannasta.");
+            } else if (uusiLahja.getId() != lahjaId && Varaus.etsi(uusiLahja.getId(), varaajaId) != null) { // Onko varaaja jo ennestään varannut uuden lahjan?
+                session.setAttribute("ilmoitus", "Virhe! Varaaja on jo varannut ko. lahjan!");
             } else {
                 try {
                     varaus.setLahjaId(uusiLahja.getId());
                     varaus.paivitaKantaan(lahjaId, varaajaId);
                     session.setAttribute("ilmoitus", "Varaus päivitetty onnistuneesti.");
-                } catch (Exception e) {
-                    
-                }
+                } catch (Exception e) {}
                 
             }
         }

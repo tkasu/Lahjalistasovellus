@@ -27,15 +27,6 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Muista kirjautuminen
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
                     <button type="submit" class="btn btn-default">Kirjaudu sisään</button>
                 </div>
                 <br /> <br /> <br /> <br />
@@ -45,7 +36,7 @@
                     <div class="alert alert-danger">${errorViesti}</div>
                 </c:if>
                 
-                <p>Testitunnukset kirjautumiseen: käyttäjätunnus: admin, salasana: password</p>
+                
                 
             </div>
         </form>
