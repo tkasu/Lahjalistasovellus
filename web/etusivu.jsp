@@ -8,13 +8,22 @@
         <li class="passive"><a href="login">Admin Sign In</a></li>
     </ul>
 
-
     <div class="container">
-        <h1>Tervetuloa!</h1>
-        <p>Tervetuloa X:n ja Y:n lahjanvaraussivustolle! 
-            Alla olevasta listasta voitte selata ja varata lahjaehdotuksia
-            Kysymyksissä ja ongelmatilanteissa ota yhteyttä x@y.z.</p>
-
+        <img class="center-block" src="logo.png" class="img-responsive" height="40%" width="40%">
+    </div>
+    
+    <br>
+    <br>
+    <br>
+    <br>
+    
+    <div class="container">
+        <div class="center-block">
+            <p class="text-center">
+                Tervetuloa X:n ja Y:n lahjanvaraussivustolle! 
+                Tähän tekstidaa.
+                Kysymyksissä ja ongelmatilanteissa ota yhteyttä x@y.z.</p>
+        </div>
         <br />
         
         <c:if test="${ilmoitus != null}">
@@ -26,27 +35,31 @@
             <div class="alert alert-danger">${virhe}</div>
         </c:forEach>
 
+    </div>
 
+        <div class="container panel panel-primary">
+            
+            
+            <div class="page-header">
+                <h4 id="tables">Lahjaehdotukset</h4>
+            </div>
 
-        <div class="panel panel-default">
-
-            <div class="panel-heading">Lahjaehdotukset</div>
 
             <form class="navbar-form navbar-right" role="form" action="lahjalista" method="GET">
                 <div class="form-group">
                     <input type="text" class="form-control" name="hakukentta" value="${hakuehto}" placeholder="Hae nimellä">
-                    <button type="submit" class="btn btn-default">Hae</button>
+                    <button type="submit" class="btn btn-primary">Hae</button>
                 </div>    
             </form>
            
 
-        <table class="table">
+        <table class="table table-condensed">
             <thead>
                 <tr>
-                    <td>nimi</td>
-                    <td>hinta</td>
-                    <td>Varausten määrä</td>
-                    <td>Varaus</td>
+                    <th>nimi</th>
+                    <th>hinta</th>
+                    <th>varausten määrä</th>
+                    <!--<th class="pull-right">Varaus</th>-->
                 </tr>
             </thead>
             <tbody>
@@ -65,10 +78,10 @@
                         <td>${lahja.varaustenMaara} / ${lahja.maxVaraukset}</td>
                         <c:choose>
                             <c:when test="${lahja.varaustenMaara + 1 > lahja.maxVaraukset}">
-                                <td><button type="button" class="open-varaaModal btn btn-default disabled" data-toggle="modal" data-nimi="${lahja.nimi}" data-id="${lahja.id}" data-url="${lahja.osoite}" data-target="#varaaModal">Varaa</button></td>
+                                <td><button type="button" class="open-varaaModal btn btn-default disabled pull-right" data-toggle="modal" data-nimi="${lahja.nimi}" data-id="${lahja.id}" data-url="${lahja.osoite}" data-target="#varaaModal">Varaa</button></td>
                             </c:when>
                             <c:otherwise>
-                                <td><button type="button" class="open-varaaModal btn btn-default" data-toggle="modal" data-nimi="${lahja.nimi}" data-id="${lahja.id}" data-url="${lahja.osoite}" data-target="#varaaModal">Varaa</button></td>
+                                <td><button type="button" class="open-varaaModal btn btn-default pull-right" data-toggle="modal" data-nimi="${lahja.nimi}" data-id="${lahja.id}" data-url="${lahja.osoite}" data-target="#varaaModal">Varaa</button></td>
                             </c:otherwise>
                         </c:choose>
                         
@@ -129,7 +142,7 @@
                     <br>
                     <form class="form-horizontal" role="form" action="varaanyky" method="POST">
                         <input type="hidden" name="lahja-id" id="id-kentta2" value=""/>
-                        <h4 class ="modal-title">Jo aikaisemmin varanneet</h4>
+                        <h4 class ="modal-title">Toista lahjaa varaavat</h4>
                         <label class="col-md-2 control-label">Email</label>
                         <div class="col-md-10">
                             <input type="text" class="form-control" name="email" placeholder="email (pakollinen)">

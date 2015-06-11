@@ -6,6 +6,6 @@
         maxIdle="100" maxWait="10000" username="tomikasu"
         password="valentino"
         driverClassName="org.postgresql.Driver"
-        url="jdbc:postgresql://localhost:5432/tomikasu" />
+        url="jdbc:postgresql://localhost/lahjalista" />
 </Context>
     
