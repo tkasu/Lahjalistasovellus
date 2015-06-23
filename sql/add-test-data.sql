@@ -18,3 +18,5 @@ INSERT INTO Varaus (lahja_id, varaaja_id, maara) VALUES (2, 2, 1);
 
 INSERT INTO Varaus (lahja_id, varaaja_id, maara) VALUES (1, 3, 100);
 
+INSERT INTO Tunnussana (sana) VALUES ('test');
+

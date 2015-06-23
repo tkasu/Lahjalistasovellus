@@ -24,4 +24,8 @@ CREATE TABLE Varaus (
 	PRIMARY KEY(lahja_id, varaaja_id),
 	FOREIGN KEY(lahja_id) REFERENCES Lahjaehdotus(id),
 	FOREIGN KEY(varaaja_id) REFERENCES Vieras(id));
+	
+CREATE TABLE Tunnussana (
+	id SERIAL primary key,
+	sana varchar(60) unique not null);
 

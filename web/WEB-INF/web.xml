@@ -64,6 +64,10 @@
         <servlet-name>PoistaVarausServlet</servlet-name>
         <servlet-class>Lahjalista.Servlets.PoistaVarausServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>TunnussanaServlet</servlet-name>
+        <servlet-class>Lahjalista.Servlets.TunnussanaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListaServlet</servlet-name>
         <url-pattern>/ListaServlet</url-pattern>
@@ -128,12 +132,16 @@
         <servlet-name>PoistaVarausServlet</servlet-name>
         <url-pattern>/poistaVaraus</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TunnussanaServlet</servlet-name>
+        <url-pattern>/passIn</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>lahjalista</welcome-file>
+        <welcome-file>passIn</welcome-file>
     </welcome-file-list>
 </web-app>

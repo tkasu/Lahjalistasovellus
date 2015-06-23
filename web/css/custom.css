@@ -4,3 +4,17 @@ h1, h2, h3, h4, h5, h6 {
 p, div {
     font-family: 'Kotta One', serif;
 }
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}

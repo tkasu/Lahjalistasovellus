@@ -8,9 +8,9 @@ INSERT INTO Lahjaehdotus (nimi, lisaaja, maxVaraukset) VALUES ('Playstation 4', 
 
 INSERT INTO Vieras (nimi, email, puhnro) VALUES ('Anton', 'genji@hanken.se', '0401112345');
 
-INSERT INTO Vieras (nimi) VALUES ('Heidi');
+INSERT INTO Vieras (nimi, email) VALUES ('Heidi', 'heide@heidi.fi');
 
-INSERT INTO Vieras (nimi, puhnro) VALUES ('Sari', '0104567891');
+INSERT INTO Vieras (nimi, email, puhnro) VALUES ('Sari', 'sari@sari.sari', '0104567891');
 
 INSERT INTO Varaus (lahja_id, varaaja_id, maara) VALUES (3, 1, 1);
 
